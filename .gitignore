@@ -1,0 +1,13 @@
+
+### IDEA ###
+.idea/
+
+### Maven ###
+.mvn/
+
+### VSCode ###
+.vscode/
+
+### Downloaded Gists ###
+gists/
+
