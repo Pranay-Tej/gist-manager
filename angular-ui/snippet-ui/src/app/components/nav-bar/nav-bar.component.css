@@ -1,0 +1,32 @@
+.main-menu {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+    background-color: #56727C;
+}
+
+.main-menu-section {
+    display: flex;
+    align-items: center;
+}
+
+.main-menu-item {
+    padding: 15px 15px;
+    /* font-size: 15px; */
+    color: white;
+}
+
+.main-menu-item+.main-menu-item {
+    margin-left: 5px;
+}
+
+.main-menu-button {
+    cursor: pointer;
+    color: #D9E9EF;
+}
+
+.main-menu-button:hover {
+    color: #FFFFFF;
+    background-color: #415F69;
+    border-radius: 4px;
+}

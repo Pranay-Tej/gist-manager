@@ -1,0 +1,19 @@
+.home-main-container {
+    display: flex;
+    height: 100%;
+}
+
+.tags {
+    flex:1;
+    overflow-y: auto;
+}
+
+.snippets {
+    flex:1;
+    overflow-y: auto;
+}
+
+.code{
+    flex: 4;
+    overflow-y: auto;
+  }

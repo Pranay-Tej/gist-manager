@@ -1,0 +1,28 @@
+.tag-list-bar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-right: 1px solid #D7DBDD;
+    background-color: rgb(95, 94, 94);
+    overflow-y: auto;
+}
+
+.tag-special {
+    margin: 10px 0px;
+    border-bottom: 1px solid tan;
+    justify-content: center;
+}
+
+.tag-special-item, .tag-list-item {
+    cursor: pointer;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+    /* font-size: 15px; */
+}
+
+.tag-special-item:hover, .tag-list-item:hover {
+    background-color: white;
+    color: black;
+    /* font-size: 15px; */
+}

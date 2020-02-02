@@ -1,0 +1,22 @@
+.snippet-list-bar{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-right: 1px solid sandybrown;
+    background-color: darkslategrey;
+    padding-top: 15px;
+    overflow-y: auto;
+}
+
+.snippet-list-item{
+    cursor: pointer;
+    padding: 10px 20px;
+    color: white;
+    text-align: center;
+}
+
+.snippet-list-item:hover{
+    background-color: burlywood;
+    color: black;
+    text-align: center;
+}
