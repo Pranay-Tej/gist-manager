@@ -17,9 +17,12 @@
 }
 
 .code{
-    
+    /* margin-left: 5px; */
 }
 
-.code pre{
+.code-pre{
+    width: 100%;
     margin: 0px;
+    padding-left: 10px;
+    border-radius: 0px;
 }

@@ -1,17 +1,23 @@
 <div class="code-main-container">
   <div class="code-info">
-    <div class="code-info-item code-title">
-      Code Title
+    <div *ngIf="snippet" class="code-info-item code-title">
+      {{ snippet.filename }}
     </div>
-    <div class="code-info-item owner-name">
-      Owner Name
+    <div *ngIf="snippet" class="code-info-item owner-name">
+      {{ snippet.owner }}
     </div>
   </div>
   <div class="code">
-    <pre>
-      <code class="language-cpp">
-        {{code}}
-      </code>
+    <!-- google prettify -->
+    <pre class="prettyprint code-pre">
+      {{ snippet.code }}
     </pre>
+
+    <!-- highlight.js -->
+    <!-- <pre>
+      <code>
+        {{ snippet.code }}
+      </code>
+    </pre> -->
   </div>
 </div>

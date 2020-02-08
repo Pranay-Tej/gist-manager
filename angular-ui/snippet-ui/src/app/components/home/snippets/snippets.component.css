@@ -13,10 +13,14 @@
     padding: 10px 20px;
     color: white;
     text-align: center;
+    background-color: darkslategrey;
+}
+
+.snippet-list-item:nth-child(even){
+    background-color:rgb(48, 14, 71);
 }
 
 .snippet-list-item:hover{
     background-color: burlywood;
     color: black;
-    text-align: center;
 }

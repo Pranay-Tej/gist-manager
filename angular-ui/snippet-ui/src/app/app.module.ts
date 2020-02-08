@@ -9,6 +9,8 @@ import { CodeComponent } from './components/home/code/code.component';
 import { SnippetsComponent } from './components/home/snippets/snippets.component';
 import { TagsComponent } from './components/home/tags/tags.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -20,7 +22,8 @@ import { TagsComponent } from './components/home/tags/tags.component';
    ],
    imports: [
       BrowserModule,
-      AppRoutingModule
+      AppRoutingModule,
+      HttpClientModule
    ],
    providers: [],
    bootstrap: [
