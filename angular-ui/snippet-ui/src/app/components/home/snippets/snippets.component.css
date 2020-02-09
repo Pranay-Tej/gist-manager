@@ -14,6 +14,7 @@
     color: white;
     text-align: center;
     background-color: darkslategrey;
+    overflow-wrap: anywhere;
 }
 
 .snippet-list-item:nth-child(even){

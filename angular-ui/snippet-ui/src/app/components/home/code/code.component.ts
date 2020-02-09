@@ -18,7 +18,10 @@ export class CodeComponent implements OnInit {
 constructor(private communicationService :CommunicationService, private gistServiceService: GistServiceService) { }
 
 ngOnInit() {
-  this.communicationService.idEmitter.subscribe(
+
+  // this.communicationService.idEmitter.subscribe()
+
+  this.communicationService.gist_id.subscribe(
     (received_id: string) => {
 
       this.gistServiceService.getSnippetById(received_id).subscribe(

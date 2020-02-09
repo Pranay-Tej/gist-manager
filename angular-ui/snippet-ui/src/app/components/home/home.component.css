@@ -5,15 +5,12 @@
 
 .tags {
     flex:1;
-    overflow-y: auto;
 }
 
 .snippets {
-    flex:1;
-    overflow-y: auto;
+    flex:2;
 }
 
 .code{
-    flex: 4;
-    overflow-y: auto;
-  }
+    flex: 5;
+}
