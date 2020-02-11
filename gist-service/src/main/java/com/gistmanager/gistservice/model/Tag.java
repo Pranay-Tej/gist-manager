@@ -4,22 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Document
-public class Snippet {
-    @MongoId
+public class Tag {
+    @Id
     private String id;
+    private String name;
     private String username;
-    private Date created_at;
-    private Date updated_at;
-    private String filename;
-    private String code;
+    private List<String> snippet_list;
+
 }

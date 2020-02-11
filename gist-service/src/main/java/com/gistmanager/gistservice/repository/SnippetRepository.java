@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface SnippetRepository extends MongoRepository <Snippet, String> {
 
-    @Query("{ owner: ?0 }")
+    @Query("{ username: ?0 }")
     List<Snippet> getAllUserSnippets(String username);
 }

@@ -53,7 +53,7 @@ public class SnippetService {
         for(GistInfo gistInfo: completeGistInfoList){
             Snippet snippet = new Snippet();
             snippet.setId(gistInfo.getId());
-            snippet.setOwner(username);
+            snippet.setUsername(username);
             snippet.setCreated_at(gistInfo.getCreated_at());
             snippet.setUpdated_at(gistInfo.getUpdated_at());
             for(Map.Entry m : gistInfo.getFiles().entrySet()){
@@ -70,7 +70,7 @@ public class SnippetService {
         return "Library Successfully Refreshed";
     }
 
-    public List<Snippet> getAllUserSnippets(String username) {
+    public List<Snippet> getUserSnippets(String username) {
         return snippetRepository.getAllUserSnippets(username);
     }
 
@@ -82,7 +82,7 @@ public class SnippetService {
         Snippet snippet = snippetRepository.findById(id).get();
 
         String filename = snippet.getFilename();
-        String username = snippet.getOwner();
+        String username = snippet.getUsername();
         String code = snippet.getCode();
 
         try {
