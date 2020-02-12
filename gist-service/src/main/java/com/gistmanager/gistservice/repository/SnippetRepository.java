@@ -12,4 +12,7 @@ public interface SnippetRepository extends MongoRepository <Snippet, String> {
 
     @Query("{ username: ?0 }")
     List<Snippet> getAllUserSnippets(String username);
+
+    @Query("{ id: { $in: ?0 } }")
+    List<Snippet> findByTagId(List<String> snippet_list);
 }

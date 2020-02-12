@@ -72,5 +72,9 @@ public class GistController {
         return responseEntity;
     }
 
-
+    @GetMapping("/snippets/tag/{tag_id}")
+    ResponseEntity<?> getTagSnippets(@PathVariable String tag_id){
+        responseEntity = new ResponseEntity< List<Snippet> >(snippetService.getSnippetsByTag(tag_id),HttpStatus.OK);
+        return responseEntity;
+    }
 }

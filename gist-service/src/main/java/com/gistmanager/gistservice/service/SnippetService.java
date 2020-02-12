@@ -4,7 +4,9 @@ import com.gistmanager.gistservice.model.GitHubModel.FileInfo;
 import com.gistmanager.gistservice.model.GitHubModel.GistInfo;
 import com.gistmanager.gistservice.model.GitHubModel.UserInfo;
 import com.gistmanager.gistservice.model.Snippet;
+import com.gistmanager.gistservice.model.Tag;
 import com.gistmanager.gistservice.repository.SnippetRepository;
+import com.gistmanager.gistservice.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -118,4 +120,11 @@ public class SnippetService {
         return  "Successfully downloaded " + filename;
     }
 
+    @Autowired
+    TagRepository tagRepository;
+
+    public List<Snippet> getSnippetsByTag(String tag_id) {
+        Tag tag = tagRepository.findById(tag_id).get();
+        return snippetRepository.findByTagId(tag.getSnippet_list());
+    }
 }

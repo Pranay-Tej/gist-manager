@@ -6,16 +6,13 @@ import { BehaviorSubject } from 'rxjs'
 })
 export class CommunicationService {
 
-  // idEmitter: EventEmitter<string> = new EventEmitter<string>();
-
-  private messageSource = new BehaviorSubject('');
-  gist_id = this.messageSource.asObservable();
+  private gistSubject = new BehaviorSubject<string>('');
+  gist_id = this.gistSubject.asObservable();
 
   passId(id: string): void{
-    this.messageSource.next(id);
-    // this.idEmitter.emit(this.id);
-
+    this.gistSubject.next(id);
   }
+
 
 constructor() {}
   

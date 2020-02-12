@@ -19,8 +19,6 @@ constructor(private communicationService :CommunicationService, private gistServ
 
 ngOnInit() {
 
-  // this.communicationService.idEmitter.subscribe()
-
   this.communicationService.gist_id.subscribe(
     (received_id: string) => {
 

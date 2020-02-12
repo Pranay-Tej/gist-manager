@@ -26,7 +26,7 @@ export class SnippetsComponent implements OnInit {
     this.communicationService.passId(this.snippet_list[0].id);
   }
 
-  passTicketId(id: string) {
+  passId(id: string) {
     this.communicationService.passId(id);
   }
 
@@ -34,7 +34,7 @@ export class SnippetsComponent implements OnInit {
 
   ngOnInit() {
     this.getAllSnippets();
-    // this.passTicketId(this.snippet_list[0].id);
+    // this.passId(this.snippet_list[0].id);
     // console.log(this.snippet_list);
     // this.sendDefault();
   }
