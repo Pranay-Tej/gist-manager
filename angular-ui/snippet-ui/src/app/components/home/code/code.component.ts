@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Snippet } from 'src/app/models/snippet';
-import { CommunicationService } from 'src/services/communication.service';
-import { GistServiceService } from 'src/services/gist-service.service';
+import { CommunicationService } from 'src/app/services/communication.service';
+import { GistServiceService } from 'src/app/services/gist-service.service';
 
 @Component({
   selector: 'app-code',

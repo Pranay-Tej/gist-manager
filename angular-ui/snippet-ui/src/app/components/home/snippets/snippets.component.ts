@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Snippet } from 'src/app/models/snippet';
-import { GistServiceService } from 'src/services/gist-service.service';
-import { CommunicationService } from 'src/services/communication.service';
+import { GistServiceService } from 'src/app/services/gist-service.service';
+import { CommunicationService } from 'src/app/services/communication.service';
 
 @Component({
   selector: 'app-snippets',
@@ -30,10 +30,34 @@ export class SnippetsComponent implements OnInit {
     this.communicationService.passId(id);
   }
 
+  loadTagSnippets(){
+    this.communicationService.tag_id.subscribe(
+      (rec_tag_id) => {
+        if(rec_tag_id == null){
+          this.getAllSnippets();
+        }else{
+          this.gistService.getTagSnippets(rec_tag_id).subscribe(
+            (rec_snippet_list) => {
+              this.snippet_list = rec_snippet_list;
+            }
+          );
+        }
+      }
+    );
+  }
+
+
+
   constructor(private gistService: GistServiceService, private communicationService: CommunicationService) { }
 
   ngOnInit() {
-    this.getAllSnippets();
+    // this.getAllSnippets();
+    this.loadTagSnippets();
+    this.communicationService.all.subscribe(
+      () => {
+        this.getAllSnippets();
+      }
+    )
     // this.passId(this.snippet_list[0].id);
     // console.log(this.snippet_list);
     // this.sendDefault();

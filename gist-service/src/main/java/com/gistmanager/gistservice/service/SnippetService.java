@@ -35,6 +35,9 @@ public class SnippetService {
     SnippetRepository snippetRepository;
 
     public String refreshLibrary(String username) {
+
+        System.out.println("Updating Library...");
+
         HttpHeaders httpHeaders = new HttpHeaders();
 //        httpHeaders.setBearerAuth("GitHub Authentication token");
         HttpEntity<String> httpEntity = new HttpEntity<String>(httpHeaders);
