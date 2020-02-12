@@ -20,7 +20,7 @@ export class TagsComponent implements OnInit {
       (rec_tag_list) => {
         this.tag_list = rec_tag_list;
       }
-    )
+    );
   }
 
   refreshLibrary() {
@@ -42,10 +42,21 @@ export class TagsComponent implements OnInit {
           console.log(response);
         }
       );
+      // this.getUserTags();
     } else {
       alert('Invalid tag name!');
     }
   }
+
+  deleteTag(id:string){
+    this.tagService.deleteTag(id).subscribe(
+      (response) => {
+        console.log(response);
+      }
+    );
+    // this.getUserTags();
+  }
+
   getAllSnippets() {
     this.communicationService.getAllSnippets();
   }

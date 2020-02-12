@@ -6,5 +6,8 @@
   </div>
   <div class="tag-list">
     <div class="tag-list-item" (click)="newTag()">Add Tag [+]</div>
-    <div class="tag-list-item" *ngFor="let tag of tag_list" (click)=getTagSnippets(tag.id)>{{ tag.name }}</div>
+    <div class="tag-list-item" *ngFor="let tag of tag_list" (click)=getTagSnippets(tag.id)>
+      {{ tag.name }}
+      <button (click)="deleteTag(tag.id)">[X]</button>
+    </div>
 </div>

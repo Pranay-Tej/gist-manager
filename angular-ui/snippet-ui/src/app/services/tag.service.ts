@@ -9,6 +9,10 @@ import { Tag } from '../models/tag';
 })
 export class TagService {
 
+  deleteTag(id: string) {
+    return this.http.delete(environment.gistService + '/tags/' + id, {responseType: 'text'});
+  }
+
   getUserTags(username:string): Observable<Tag[]>{
     return this.http.get<Tag[]>(environment.gistService + '/tags/' + username);
   }
