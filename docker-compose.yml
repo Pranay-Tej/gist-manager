@@ -21,9 +21,9 @@ services:
       - mongo
   
   #FRONTEND
-  snippet-ui:
-    build: ./angular-ui/snippet-ui
-    restart: always
-    network_mode: 'host'
-    ports:
-      - "80:80"
+  # snippet-ui:
+  #   build: ./angular-ui/snippet-ui
+  #   restart: always
+  #   network_mode: 'host'
+  #   ports:
+  #     - "80:80"
