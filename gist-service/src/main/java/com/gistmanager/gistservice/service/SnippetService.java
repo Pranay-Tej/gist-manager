@@ -83,46 +83,6 @@ public class SnippetService {
         return snippetRepository.findById(id).get();
     }
 
-    public String downloadSnippetById(String id) {
-        Snippet snippet = snippetRepository.findById(id).get();
-
-        String filename = snippet.getFilename();
-        String username = snippet.getUsername();
-        String code = snippet.getCode();
-
-        try {
-
-            Path path = Paths.get("../gists/" + username);
-            //if directory exists?
-            if (!Files.exists(path)) {
-                try {
-                    Files.createDirectories(path);
-                } catch (IOException e) {
-                    System.out.println("Failed to create directory");
-                    e.printStackTrace();
-                }
-            }
-
-            File myObj = new File("../gists/" + username + "/" + filename);
-            if (!myObj.exists()) {
-                myObj.createNewFile();
-                System.out.println("File created: " + myObj.getName() + " at : " + myObj.getPath());
-            } else {
-                System.out.println("File to be updated: " + myObj.getName() + " at : " + myObj.getPath());
-            }
-            FileWriter myWriter = new FileWriter("../gists/" + username + "/" + filename);
-            assert code != null;
-            myWriter.write(code);
-            myWriter.close();
-            System.out.println("Successfully downloaded " + filename);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("An error occurred.");
-        }
-
-        return  "Successfully downloaded " + filename;
-    }
-
     @Autowired
     TagRepository tagRepository;
 
@@ -130,4 +90,46 @@ public class SnippetService {
         Tag tag = tagRepository.findById(tag_id).get();
         return snippetRepository.findByTagId(tag.getSnippet_list());
     }
+
+    // download w/o frontend
+//    public String downloadSnippetById(String id) {
+//        Snippet snippet = snippetRepository.findById(id).get();
+//
+//        String filename = snippet.getFilename();
+//        String username = snippet.getUsername();
+//        String code = snippet.getCode();
+//
+//        try {
+//
+//            Path path = Paths.get("../gists/" + username);
+//            //if directory exists?
+//            if (!Files.exists(path)) {
+//                try {
+//                    Files.createDirectories(path);
+//                } catch (IOException e) {
+//                    System.out.println("Failed to create directory");
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            File myObj = new File("../gists/" + username + "/" + filename);
+//            if (!myObj.exists()) {
+//                myObj.createNewFile();
+//                System.out.println("File created: " + myObj.getName() + " at : " + myObj.getPath());
+//            } else {
+//                System.out.println("File to be updated: " + myObj.getName() + " at : " + myObj.getPath());
+//            }
+//            FileWriter myWriter = new FileWriter("../gists/" + username + "/" + filename);
+//            assert code != null;
+//            myWriter.write(code);
+//            myWriter.close();
+//            System.out.println("Successfully downloaded " + filename);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            System.out.println("An error occurred.");
+//        }
+//
+//        return  "Successfully downloaded " + filename;
+//    }
+
 }

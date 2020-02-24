@@ -5,10 +5,13 @@ import com.gistmanager.gistservice.model.Tag;
 import com.gistmanager.gistservice.service.SnippetService;
 import com.gistmanager.gistservice.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -44,9 +47,49 @@ public class GistController {
 
     @GetMapping("/download/{id}")
     ResponseEntity<?> downloadSnippetById(@PathVariable String id){
-        responseEntity = new ResponseEntity<String>(snippetService.downloadSnippetById(id), HttpStatus.OK);
+        Snippet snippet= snippetService.getSnippetById(id);
+        String code = snippet.getCode();
+        byte[] code_bytes = code.getBytes();
+        String filename = snippet.getFilename();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentLength(code_bytes.length);
+        httpHeaders.setContentType(new MediaType("text","plain"));
+        httpHeaders.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+        httpHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attatchment; filename=" + filename);
+        responseEntity = new ResponseEntity<byte[]>(code_bytes,httpHeaders, HttpStatus.OK);
         return responseEntity;
     }
+
+//    @GetMapping(value = "/download/tag/{id}", produces = "application/zip")
+//    ResponseEntity<?> downloadSnippetByTagId(@PathVariable String id){
+//        Snippet snippet= snippetService.getSnippetById(id);
+//        String code = snippet.getCode();
+//        byte[] code_bytes = code.getBytes();
+//        String filename = snippet.getFilename();
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.setContentLength(code_bytes.length);
+//        httpHeaders.setContentType(new MediaType("text","plain"));
+//        httpHeaders.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+//        httpHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attatchment; filename=" + filename);
+//        responseEntity = new ResponseEntity<byte[]>(code_bytes,httpHeaders, HttpStatus.OK);
+//        return responseEntity;
+//    }
+
+//    @GetMapping("/download/all/{username}")
+//    ResponseEntity<?> downloadAllSnippet(@PathVariable String username) throws IOException {
+//        List<Snippet> snippet= snippetService.getUserSnippets(username);
+//        String code = snippet.getCode();
+//        byte[] code_bytes = code.getBytes();
+//        String filename = snippet.getFilename();
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.setContentLength(code_bytes.length);
+//        httpHeaders.setContentType(new MediaType("text","plain"));
+//        httpHeaders.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+//        httpHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attatchment; filename=" + filename);
+//        responseEntity = new ResponseEntity<byte[]>(code_bytes,httpHeaders, HttpStatus.OK);
+//        return responseEntity;
+//    }
+
 
     @GetMapping("/tags/{username}")
     ResponseEntity<?> getAllUserTags(@PathVariable String username){
