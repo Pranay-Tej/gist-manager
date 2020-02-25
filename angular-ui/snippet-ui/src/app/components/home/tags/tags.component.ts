@@ -3,6 +3,7 @@ import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/tag';
 import { CommunicationService } from 'src/app/services/communication.service';
 import { GistServiceService } from 'src/app/services/gist-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-tags',
@@ -14,6 +15,16 @@ export class TagsComponent implements OnInit {
   tag_list: Tag[] = [];
 
   username: string = 'Pranay-Tej';
+
+  downloadAllSnippets() {
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', environment.gistService + '/download/all/' + this.username);
+    link.setAttribute('download', this.username + '.zip');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
 
   getUserTags() {
     this.tagService.getUserTags(this.username).subscribe(
