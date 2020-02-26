@@ -64,20 +64,37 @@ public class GistController {
         return responseEntity;
     }
 
-    //    @GetMapping(value = "/download/tag/{id}", produces = "application/zip")
-//    ResponseEntity<?> downloadSnippetByTagId(@PathVariable String id){
-//        Snippet snippet= snippetService.getSnippetById(id);
-//        String code = snippet.getCode();
-//        byte[] code_bytes = code.getBytes();
-//        String filename = snippet.getFilename();
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.setContentLength(code_bytes.length);
-//        httpHeaders.setContentType(new MediaType("text","plain"));
-//        httpHeaders.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-//        httpHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attatchment; filename=" + filename);
-//        responseEntity = new ResponseEntity<byte[]>(code_bytes,httpHeaders, HttpStatus.OK);
-//        return responseEntity;
-//    }
+    @GetMapping(value = "/download/tag/{id}", produces = "application/zip")
+    public ResponseEntity<?> downloadTagGists(@PathVariable String id) throws IOException {
+        ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
+        ZipOutputStream zos = new ZipOutputStream(byteOutputStream);
+        Tag tag = tagService.getTagById(id);
+        List<Snippet> userGists = snippetService.getSnippetsByTag(id);
+
+        for (Snippet snippet : userGists) {
+            ZipEntry ze = new ZipEntry(snippet.getFilename());
+            String code = snippet.getCode();
+            byte[] code_bytes = code.getBytes();
+            ze.setSize(code_bytes.length);
+            zos.putNextEntry(ze);
+            zos.write(code_bytes, 0, code_bytes.length);
+            zos.closeEntry();
+        }
+
+        zos.finish();
+        zos.close();
+
+//        StreamUtils.copy();
+        byte[] zip_bytes = byteOutputStream.toByteArray();
+
+        String filename = tag.getName() + ".zip";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/zip"));
+        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + tag.getName() + ".zip");
+        ResponseEntity responseEntity = new ResponseEntity<byte[]>(zip_bytes, headers, HttpStatus.OK);
+        return responseEntity;
+    }
 
     @GetMapping(value = "/download/all/{username}", produces = "application/zip")
     public ResponseEntity<?> downloadAllUserGists(@PathVariable String username) throws IOException {
@@ -137,6 +154,18 @@ public class GistController {
     @GetMapping("/snippets/tag/{tag_id}")
     ResponseEntity<?> getTagSnippets(@PathVariable String tag_id) {
         responseEntity = new ResponseEntity<List<Snippet>>(snippetService.getSnippetsByTag(tag_id), HttpStatus.OK);
+        return responseEntity;
+    }
+
+    @PostMapping("/snippets/addTags/{id}")
+    ResponseEntity<?> addTagsToSnippet(@PathVariable String id, @RequestBody List<Tag> tags){
+        responseEntity = new ResponseEntity<Boolean>(snippetService.addTagsToSnippet(id,tags), HttpStatus.OK);
+        return responseEntity;
+    }
+
+    @PostMapping("/snippets/removeTags/{id}")
+    ResponseEntity<?> removeTagsFromSnippet(@PathVariable String id, @RequestBody List<Tag> tags){
+        responseEntity = new ResponseEntity<Boolean>(snippetService.removeTagsFromSnippet(id,tags), HttpStatus.OK);
         return responseEntity;
     }
 }

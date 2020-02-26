@@ -1,14 +1,20 @@
 package com.gistmanager.gistservice.model.GitHubModel;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class UserInfo {
     private Integer public_gists;
+
+    public UserInfo() {
+    }
+
+    public UserInfo(Integer public_gists) {
+        this.public_gists = public_gists;
+    }
+
+    public Integer getPublic_gists() {
+        return public_gists;
+    }
+
+    public void setPublic_gists(Integer public_gists) {
+        this.public_gists = public_gists;
+    }
 }

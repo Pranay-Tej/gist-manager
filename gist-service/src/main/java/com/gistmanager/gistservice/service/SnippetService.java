@@ -7,19 +7,23 @@ import com.gistmanager.gistservice.model.Snippet;
 import com.gistmanager.gistservice.model.Tag;
 import com.gistmanager.gistservice.repository.SnippetRepository;
 import com.gistmanager.gistservice.repository.TagRepository;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,22 +51,20 @@ public class SnippetService {
 
         List<GistInfo> completeGistInfoList = new ArrayList<>();
         Double per_page = Double.valueOf(30);
-        Double total_pages = Math.ceil(total_gists/per_page);
+        Double total_pages = Math.ceil(total_gists / per_page);
 
-        for(int i=0;i<total_pages;i++){
+        for (int i = 0; i < total_pages; i++) {
             GistInfo[] singlePageGistInfoArray = restTemplate.exchange("https://api.github.com/users/" + username + "/gists?page=" + i + "&per_page=" + per_page, HttpMethod.GET, httpEntity, GistInfo[].class).getBody();
             List<GistInfo> singlePageGistInfoList = Arrays.asList(singlePageGistInfoArray);
             completeGistInfoList.addAll(singlePageGistInfoList);
         }
 
-        for(GistInfo gistInfo: completeGistInfoList){
+        for (GistInfo gistInfo : completeGistInfoList) {
             Snippet snippet = new Snippet();
             snippet.setId(gistInfo.getId());
             snippet.setUsername(username);
-            snippet.setCreated_at(gistInfo.getCreated_at());
-            snippet.setUpdated_at(gistInfo.getUpdated_at());
-            for(Map.Entry m : gistInfo.getFiles().entrySet()){
-                FileInfo fileInfo = (FileInfo)m.getValue();
+            for (Map.Entry m : gistInfo.getFiles().entrySet()) {
+                FileInfo fileInfo = (FileInfo) m.getValue();
                 String filename = fileInfo.getFilename();
                 String url = fileInfo.getRaw_url();
                 String code = restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class).getBody();
@@ -83,12 +85,81 @@ public class SnippetService {
         return snippetRepository.findById(id).get();
     }
 
+    public List<Snippet> getSnippetsByTag(String tag_id) {
+        return snippetRepository.findByTagId(tag_id);
+    }
+
+//    private static final String TAGS_FIELD = "tags";
+//
+//    private MongoCollection<Document> collection;
+//
+//    private MongoClient mongoClient;
+//
+//    public SnippetService() {
+//        mongoClient = new MongoClient("localhost", 27017);
+//        MongoDatabase database = mongoClient.getDatabase("gist-service");
+//        collection = database.getCollection("snippet");
+//    }
+
+    public boolean addTagsToSnippet(String id, List<Tag> tags) {
+
+//        UpdateResult result = collection.updateOne(
+//                new BasicDBObject(DBCollection.ID_FIELD_NAME, id),
+//                Updates.addEachToSet(TAGS_FIELD, tags)
+//        );
+//        return result.getMatchedCount() == 1;
+//        snippetRepository.addTagsToSnippet(id, tags);
+
+        Snippet snippet = snippetRepository.findById(id).get();
+//        System.out.println("------- Tags:" + tags);
+        List<Tag> tag_list = snippet.getTags();
+//        System.out.println("------- Before:" + tag_list);
+        if(tag_list == null){
+            tag_list = new ArrayList<>();
+        }
+        tag_list.addAll(tags);
+//        System.out.println("------- After:" + tag_list);
+        snippet.setTags(tag_list);
+        snippetRepository.save(snippet);
+        return true;
+    }
+
+    public boolean removeTagsFromSnippet(String id, List<Tag> tags) {
+
+        //        UpdateResult result = collection.updateOne(
+//                new BasicDBObject(DBCollection.ID_FIELD_NAME, id),
+//                Updates.pullAll(TAGS_FIELD, tags)
+//        );
+//        return result.getMatchedCount() == 1;
+        Snippet snippet = snippetRepository.findById(id).get();
+//        System.out.println("------- Tags:" + tags);
+        List<Tag> tag_list = snippet.getTags();
+//        System.out.println("------- Before:" + tag_list);
+        if(tag_list == null){
+            tag_list = new ArrayList<>();
+        }
+        tag_list.removeAll(tags);
+//        System.out.println("------- After:" + tag_list);
+        snippet.setTags(tag_list);
+        snippetRepository.save(snippet);
+        return true;
+    }
+
     @Autowired
     TagRepository tagRepository;
 
-    public List<Snippet> getSnippetsByTag(String tag_id) {
-        Tag tag = tagRepository.findById(tag_id).get();
-        return snippetRepository.findByTagId(tag.getSnippet_list());
+    public String deleteTagOperation(String id){
+        Tag tag = tagRepository.findById(id).get();
+//        Query delQuery = Query.query(Criteria.where())
+        List<Snippet> snippets = snippetRepository.findByTagId(id);
+        for(Snippet snippet : snippets){
+            List<Tag>tag_list = snippet.getTags();
+            tag_list.remove(tag);
+            snippet.setTags(tag_list);
+        }
+
+        return "Deleted tag removed from snippets";
+
     }
 
     // download w/o frontend

@@ -1,22 +1,35 @@
 package com.gistmanager.gistservice.model.GitHubModel;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.Date;
 import java.util.Map;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class GistInfo {
     private String id;
     private Map<String, FileInfo> files;
-    private Date created_at;
-    private Date updated_at;
+
+    public GistInfo() {
+    }
+
+    public GistInfo(String id, Map<String, FileInfo> files) {
+        this.id = id;
+        this.files = files;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Map<String, FileInfo> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Map<String, FileInfo> files) {
+        this.files = files;
+    }
 }
 
 
