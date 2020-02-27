@@ -1,2 +1,7 @@
 <app-nav-bar class="nav-bar"></app-nav-bar>
 <router-outlet></router-outlet>
+
+<!-- Custom modal setup -->
+<div id="modal-container" class="hidden" (click)="removeModal($event)">
+    <div id="modal" class="hidden"></div>
+</div>
