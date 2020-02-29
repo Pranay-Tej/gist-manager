@@ -101,7 +101,7 @@ public class SnippetService {
 //        collection = database.getCollection("snippet");
 //    }
 
-    public boolean addTagsToSnippet(String id, List<Tag> tags) {
+    public boolean addTagsToSnippet(String id, List<String> tags) {
 
 //        UpdateResult result = collection.updateOne(
 //                new BasicDBObject(DBCollection.ID_FIELD_NAME, id),
@@ -112,7 +112,7 @@ public class SnippetService {
 
         Snippet snippet = snippetRepository.findById(id).get();
 //        System.out.println("------- Tags:" + tags);
-        List<Tag> tag_list = snippet.getTags();
+        List<String> tag_list = snippet.getTags();
 //        System.out.println("------- Before:" + tag_list);
         if(tag_list == null){
             tag_list = new ArrayList<>();
@@ -124,7 +124,7 @@ public class SnippetService {
         return true;
     }
 
-    public boolean removeTagsFromSnippet(String id, List<Tag> tags) {
+    public boolean removeTagsFromSnippet(String id, List<String> tags) {
 
         //        UpdateResult result = collection.updateOne(
 //                new BasicDBObject(DBCollection.ID_FIELD_NAME, id),
@@ -133,7 +133,7 @@ public class SnippetService {
 //        return result.getMatchedCount() == 1;
         Snippet snippet = snippetRepository.findById(id).get();
 //        System.out.println("------- Tags:" + tags);
-        List<Tag> tag_list = snippet.getTags();
+        List<String> tag_list = snippet.getTags();
 //        System.out.println("------- Before:" + tag_list);
         if(tag_list == null){
             tag_list = new ArrayList<>();
@@ -149,13 +149,17 @@ public class SnippetService {
     TagRepository tagRepository;
 
     public String deleteTagOperation(String id){
-        Tag tag = tagRepository.findById(id).get();
+//        Tag tag = tagRepository.findById(id).get();
+//        raise exception if does not exist
 //        Query delQuery = Query.query(Criteria.where())
         List<Snippet> snippets = snippetRepository.findByTagId(id);
         for(Snippet snippet : snippets){
-            List<Tag>tag_list = snippet.getTags();
-            tag_list.remove(tag);
+            System.out.println("Deleting tag from: " + snippet.getFilename());
+            List<String>tag_list = snippet.getTags();
+            tag_list.remove(id);
+            System.out.println(tag_list);
             snippet.setTags(tag_list);
+            snippetRepository.save(snippet);
         }
 
         return "Deleted tag removed from snippets";

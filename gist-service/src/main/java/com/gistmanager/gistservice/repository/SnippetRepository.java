@@ -14,7 +14,7 @@ public interface SnippetRepository extends MongoRepository <Snippet, String> {
     @Query("{ username: ?0 }")
     List<Snippet> getAllUserSnippets(String username);
 
-    @Query("{ 'tags.id': ?0 }")
+    @Query("{ tags: ?0 }")
     List<Snippet> findByTagId(String tag_id);
 
 //    @Query("{ {id: ?0}, { $push: { tags: { $each: ?1 }  } } }")

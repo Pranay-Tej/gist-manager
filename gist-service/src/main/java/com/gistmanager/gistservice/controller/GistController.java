@@ -37,7 +37,7 @@ public class GistController {
         return responseEntity;
     }
 
-    @GetMapping("/snippets/{username}/all")
+    @GetMapping("/snippets/all/{username}")
     ResponseEntity<?> getAllUserSnippets(@PathVariable String username) {
         responseEntity = new ResponseEntity<List<Snippet>>(snippetService.getUserSnippets(username), HttpStatus.OK);
         return responseEntity;
@@ -127,9 +127,21 @@ public class GistController {
         return responseEntity;
     }
 
-    @GetMapping("/tags/{username}")
+    @GetMapping("/tags/user/{username}")
     ResponseEntity<?> getAllUserTags(@PathVariable String username) {
         responseEntity = new ResponseEntity<List<Tag>>(tagService.getUserTags(username), HttpStatus.OK);
+        return responseEntity;
+    }
+
+    @GetMapping("/tags/{id}")
+    ResponseEntity<?> getTagById(@PathVariable String id){
+        responseEntity = new ResponseEntity<Tag>(tagService.getTagById(id), HttpStatus.OK);
+        return responseEntity;
+    }
+
+    @GetMapping("/tags/list")
+    ResponseEntity<?> getTagListFromIds(@RequestBody List<String> tag_ids){
+        responseEntity = new ResponseEntity< List<Tag> >(tagService.getTagListFromIds(tag_ids), HttpStatus.OK);
         return responseEntity;
     }
 
@@ -147,6 +159,7 @@ public class GistController {
 
     @DeleteMapping("/tags/{id}")
     ResponseEntity<?> deleteTag(@PathVariable String id) {
+        snippetService.deleteTagOperation(id);
         responseEntity = new ResponseEntity<String>(tagService.delete(id), HttpStatus.OK);
         return responseEntity;
     }
@@ -158,13 +171,13 @@ public class GistController {
     }
 
     @PostMapping("/snippets/addTags/{id}")
-    ResponseEntity<?> addTagsToSnippet(@PathVariable String id, @RequestBody List<Tag> tags){
+    ResponseEntity<?> addTagsToSnippet(@PathVariable String id, @RequestBody List<String> tags){
         responseEntity = new ResponseEntity<Boolean>(snippetService.addTagsToSnippet(id,tags), HttpStatus.OK);
         return responseEntity;
     }
 
     @PostMapping("/snippets/removeTags/{id}")
-    ResponseEntity<?> removeTagsFromSnippet(@PathVariable String id, @RequestBody List<Tag> tags){
+    ResponseEntity<?> removeTagsFromSnippet(@PathVariable String id, @RequestBody List<String> tags){
         responseEntity = new ResponseEntity<Boolean>(snippetService.removeTagsFromSnippet(id,tags), HttpStatus.OK);
         return responseEntity;
     }

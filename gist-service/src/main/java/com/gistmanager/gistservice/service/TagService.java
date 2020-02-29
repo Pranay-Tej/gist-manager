@@ -50,4 +50,8 @@ public class TagService {
             return "Tag does not exist!";
         }
     }
+
+    public List<Tag> getTagListFromIds(List<String> tag_ids) {
+        return tagRepository.getTagListFromIds(tag_ids);
+    }
 }

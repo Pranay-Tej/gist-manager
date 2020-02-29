@@ -13,12 +13,12 @@ public class Snippet {
     private String username;
     private String filename;
     private String code;
-    private List<Tag> tags;
+    private List<String> tags;
 
     public Snippet() {
     }
 
-    public Snippet(String id, String username, String filename, String code, List<Tag> tags) {
+    public Snippet(String id, String username, String filename, String code, List<String> tags) {
         this.id = id;
         this.username = username;
         this.filename = filename;
@@ -58,11 +58,11 @@ public class Snippet {
         this.code = code;
     }
 
-    public List<Tag> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 }

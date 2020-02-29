@@ -14,11 +14,15 @@ export class TagService {
   }
 
   getUserTags(username:string): Observable<Tag[]>{
-    return this.http.get<Tag[]>(environment.gistService + '/tags/' + username);
+    return this.http.get<Tag[]>(environment.gistService + '/tags/user/' + username);
   }
 
   newTag(username:string, name:string): Observable<string>{
     return this.http.post<string>(environment.gistService + '/tags/' + username + '/' + name, {responseType: 'text'});
+  }
+
+  getTagById(id: string): Observable<Tag>{
+    return this.http.get<Tag>(environment.gistService + '/tags/' + id);
   }
   
   constructor(private http:HttpClient) { }
