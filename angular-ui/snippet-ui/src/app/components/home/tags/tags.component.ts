@@ -70,7 +70,7 @@ export class TagsComponent implements OnInit {
         );
       }
     );
-    this.ngOnInit();
+    this.getUserTags();
     // let name = prompt('Enter Tag Name:');
     // if (name != null) {
     //   this.tagService.newTag(this.username, name).subscribe(
@@ -111,6 +111,11 @@ export class TagsComponent implements OnInit {
 
   ngOnInit() {
     // this.getAllSnippets();
+    this.tagService.refreshNeeded$.subscribe(
+      () => {
+        this.getUserTags();
+      }
+    )
     this.getUserTags();
   }
 

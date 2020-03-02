@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DomService } from './dom.service';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,22 +14,46 @@ export class ModalService {
   input = this.inputSubject.asObservable();
 
   sendInput(input: any) {
-    if (input == null) {
-      return
-    }
+    // if (input == null) {
+    //   return;
+    // }
     this.inputSubject.next(input);
-    console.log('sending input' + input)
+    // this.inputSubject.complete();
+    console.log('sending input:')
+    console.log(input);
   }
 
-  private outputSubject = new BehaviorSubject<any>('');
+  private outputSubject = new Subject<any>();
   output = this.outputSubject.asObservable();
+  
+  // output:any;
+ 
+
+  // getOutput(){
+  //   const outputObservable = new Observable(
+  //     observer => {
+  //       observer.next(this.output);
+  //     }
+  //   );
+
+  //   return outputObservable;
+  // }
 
   sendOutput(output: any) {
-    if (output == null) {
-      return
-    }
+
+    // this.output = output;
+
+    // if (output == null) {
+    //   return;
+    // }
     this.outputSubject.next(output);
-    console.log('sending output' + output.name)
+    // this.outputSubject.
+    // https://medium.com/@luukgruijs/understanding-creating-and-subscribing-to-observables-in-angular-426dbf0b04a3
+    // to stop data flow and prevent multiple calls
+    // this.outputSubject.complete();
+    console.log('sending output: ' + output);
+    console.log(output);
+
   }
 
   init(component: any, input?: any) {

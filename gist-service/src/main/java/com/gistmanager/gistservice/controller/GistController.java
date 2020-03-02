@@ -170,13 +170,13 @@ public class GistController {
         return responseEntity;
     }
 
-    @PostMapping("/snippets/addTags/{id}")
+    @PutMapping("/snippets/addTags/{id}")
     ResponseEntity<?> addTagsToSnippet(@PathVariable String id, @RequestBody List<String> tags){
         responseEntity = new ResponseEntity<Boolean>(snippetService.addTagsToSnippet(id,tags), HttpStatus.OK);
         return responseEntity;
     }
 
-    @PostMapping("/snippets/removeTags/{id}")
+    @PutMapping("/snippets/removeTags/{id}")
     ResponseEntity<?> removeTagsFromSnippet(@PathVariable String id, @RequestBody List<String> tags){
         responseEntity = new ResponseEntity<Boolean>(snippetService.removeTagsFromSnippet(id,tags), HttpStatus.OK);
         return responseEntity;

@@ -11,6 +11,7 @@ import { TagsComponent } from './components/home/tags/tags.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NewtagModalComponent } from './components/popup-modals/newtag-modal/newtag-modal.component';
+import { EditTagsComponentComponent } from './components/home/code/edit-tags-modal/edit-tags-component/edit-tags-component.component';
 
 @NgModule({
    declarations: [
@@ -20,7 +21,8 @@ import { NewtagModalComponent } from './components/popup-modals/newtag-modal/new
       CodeComponent,
       SnippetsComponent,
       TagsComponent,
-      NewtagModalComponent
+      NewtagModalComponent,
+      EditTagsComponentComponent
    ],
    imports: [
       BrowserModule,
@@ -28,7 +30,8 @@ import { NewtagModalComponent } from './components/popup-modals/newtag-modal/new
       HttpClientModule
    ],
    entryComponents:[
-      NewtagModalComponent
+      NewtagModalComponent,
+      EditTagsComponentComponent
     ],
    providers: [],
    bootstrap: [

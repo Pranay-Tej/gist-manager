@@ -121,6 +121,7 @@ public class SnippetService {
 //        System.out.println("------- After:" + tag_list);
         snippet.setTags(tag_list);
         snippetRepository.save(snippet);
+        System.out.println("adding tags: " + tags);
         return true;
     }
 
@@ -142,6 +143,7 @@ public class SnippetService {
 //        System.out.println("------- After:" + tag_list);
         snippet.setTags(tag_list);
         snippetRepository.save(snippet);
+        System.out.println("removing tags: " + tags);
         return true;
     }
 
