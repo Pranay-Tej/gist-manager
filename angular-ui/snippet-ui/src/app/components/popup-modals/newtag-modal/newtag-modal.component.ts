@@ -30,10 +30,23 @@ export class NewtagModalComponent implements OnInit {
     this.modalService.destroy();
   }
 
+  cancel(){
+    let output = {
+      action: false
+    }
+    this.modalService.sendOutput(output);
+    this.modalService.destroy();
+  }
+
   constructor(private modalService: ModalService) { }
 
   ngOnInit() {
 
+    this.modalService.cancelObservable.subscribe(
+      () => {
+        this.cancel();
+      }
+    )
     // this.getInput();
 
   }

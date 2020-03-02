@@ -9,10 +9,10 @@ import { ModalService } from './services/modal.service';
 export class AppComponent {
   title = 'snippet-ui';
 
-  public removeModal(mouse:any) {
+  public cancel(mouse:any) {
     let modal_container = document.getElementById("modal-container");
     if(mouse.target == modal_container){
-      this.modalService.destroy();
+      this.modalService.cancel();
     }
   }
   constructor(private modalService:ModalService){

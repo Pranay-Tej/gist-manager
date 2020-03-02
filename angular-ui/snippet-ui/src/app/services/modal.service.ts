@@ -23,7 +23,7 @@ export class ModalService {
     console.log(input);
   }
 
-  private outputSubject = new Subject<any>();
+  private outputSubject = new BehaviorSubject<any>('');
   output = this.outputSubject.asObservable();
   
   // output:any;
@@ -74,6 +74,15 @@ export class ModalService {
   //   document.getElementById(this.modalContainerElementId).className = 'flex';
 
   // }
+
+
+
+  private cancelSubject = new Subject<void>();
+  cancelObservable = this.cancelSubject.asObservable();
+
+  cancel(){
+    this.cancelSubject.next();
+  }
 
   destroy() {
     this.domService.removeComponent();

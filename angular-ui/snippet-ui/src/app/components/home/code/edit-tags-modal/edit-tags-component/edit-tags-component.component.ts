@@ -12,6 +12,7 @@ export class EditTagsComponentComponent implements OnInit {
   username: string = 'Pranay-Tej';
 
   all_tag_list;
+  tag_id_list;
   tag_id_set;
 
   // tags_set = new Set<string>(["one", "two", "three"]);
@@ -45,7 +46,8 @@ export class EditTagsComponentComponent implements OnInit {
     console.log('final..' + Array.from(this.tag_id_set.values()));
     let final = Array.from(this.tag_id_set.values());
     let output = {
-      final_tags : final
+      final_tags : final,
+      action: true
     }
     this.modalService.sendOutput(output);
     this.modalService.destroy();
@@ -82,12 +84,23 @@ export class EditTagsComponentComponent implements OnInit {
   //   // console.log(Array.from(additions.values()));
   //   // console.log(Array.from(removals.values()));
   // }
+
   getInput() {
     this.modalService.input.subscribe(
       input => {
-        this.tag_id_set = new Set<string>(input.tags);
+        this.tag_id_list = input.tags;
+        this.tag_id_set = new Set<string>(this.tag_id_list);
       }
     )
+  }
+
+  cancel(){
+    let output = {
+      final_tags : this.tag_id_list,
+      action: false
+    }
+    this.modalService.sendOutput(output);
+    this.modalService.destroy();
   }
 
   constructor(
@@ -98,6 +111,12 @@ export class EditTagsComponentComponent implements OnInit {
   ngOnInit() {
     this.getInput();
     this.getUserTags();
+
+    this.modalService.cancelObservable.subscribe(
+      () => {
+        this.cancel();
+      }
+    )
   }
 
 }
