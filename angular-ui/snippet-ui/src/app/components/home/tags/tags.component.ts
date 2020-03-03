@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck, OnChanges } from '@angular/core';
 import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/tag';
 import { CommunicationService } from 'src/app/services/communication.service';
@@ -6,6 +6,7 @@ import { GistServiceService } from 'src/app/services/gist-service.service';
 import { environment } from 'src/environments/environment';
 import { ModalService } from 'src/app/services/modal.service';
 import { NewtagModalComponent } from '../../popup-modals/newtag-modal/newtag-modal.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tags',
@@ -44,11 +45,10 @@ export class TagsComponent implements OnInit {
           console.log(response);
         }
       );
-      this.ngOnInit();  //refresh entire app
     }
   }
 
-  newTag() {
+  openNewTagModal() {
 
     let name: string;
     // let input = {
@@ -56,20 +56,6 @@ export class TagsComponent implements OnInit {
     // }
     // this.modalService.init(NewtagModalComponent, inputs, {});
     this.modalService.init(NewtagModalComponent);
-    this.modalService.output.subscribe(
-      output => {
-        name = output.name;
-        if(name == null){
-          return;
-        }
-        console.log('creating.....' + name)
-        this.tagService.newTag(this.username, name).subscribe(
-          (response) => {
-            console.log(response);
-          }
-        );
-      }
-    );
     this.getUserTags();
     // let name = prompt('Enter Tag Name:');
     // if (name != null) {
@@ -84,14 +70,30 @@ export class TagsComponent implements OnInit {
     // }
   }
 
+  createNewTag(name){
+    console.log('creating tag...')
+    console.log(name)
+    this.tagService.newTag(this.username, name).subscribe(
+      (response) => {
+        console.log(response);
+      }
+    );
+
+    let reset_output = {
+      action: false
+    }
+    this.modalService.sendOutput(reset_output);
+
+    this.getUserTags();
+  }
+
   deleteTag(id: string) {
     this.tagService.deleteTag(id).subscribe(
       (response) => {
         console.log(response);
       }
     );
-    this.ngOnInit();
-    // this.getUserTags();
+    this.getUserTags();
   }
 
   getAllSnippets() {
@@ -102,12 +104,21 @@ export class TagsComponent implements OnInit {
     this.communicationService.passTagId(id);
   }
 
+  trackTag(index, tag){
+    if(tag != null){
+      return tag.id;
+    }
+    return null;
+  }
+
   constructor(
     private tagService: TagService,
     private communicationService: CommunicationService,
     private gistServiceService: GistServiceService,
     private modalService: ModalService
   ) { }
+
+  private modalSubscription: Subscription;
 
   ngOnInit() {
     // this.getAllSnippets();
@@ -117,6 +128,18 @@ export class TagsComponent implements OnInit {
       }
     )
     this.getUserTags();
+
+    this.modalService.output.subscribe(
+      output => {
+        if(output.action != true || output.function != 'new-tag'){
+          return;
+        }
+        console.log('creating.....' + name)
+        this.createNewTag(output.name);
+      }
+    );
+
   }
+  
 
 }

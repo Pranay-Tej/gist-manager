@@ -6,7 +6,7 @@
     <div *ngIf="snippet" class="code-info-item username">
       {{ snippet.username }}
     </div>
-    <div *ngIf="snippet" class="code-info-item download" (click)="editTags(snippet.id, snippet.tags)">
+    <div *ngIf="snippet" class="code-info-item download" (click)="openEditTagsModal()">
       Edit Tags
     </div>
     <div *ngIf="snippet" class="code-info-item download" (click)="downloadGist(snippet.id)">

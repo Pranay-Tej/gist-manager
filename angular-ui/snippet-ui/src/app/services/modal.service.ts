@@ -18,7 +18,6 @@ export class ModalService {
     //   return;
     // }
     this.inputSubject.next(input);
-    // this.inputSubject.complete();
     console.log('sending input:')
     console.log(input);
   }
@@ -47,10 +46,6 @@ export class ModalService {
     //   return;
     // }
     this.outputSubject.next(output);
-    // this.outputSubject.
-    // https://medium.com/@luukgruijs/understanding-creating-and-subscribing-to-observables-in-angular-426dbf0b04a3
-    // to stop data flow and prevent multiple calls
-    // this.outputSubject.complete();
     console.log('sending output: ' + output);
     console.log(output);
 
@@ -63,17 +58,6 @@ export class ModalService {
     document.getElementById(this.modalContainerElementId).className = 'flex';
 
   }
-
-  // init(component: any, inputs: object, outputs: object) {
-  //   let componentConfig = {
-  //     inputs: inputs,
-  //     outputs: outputs
-  //   }
-  //   this.domService.appendComponentTo(this.modalElementId, component, componentConfig);
-  //   document.getElementById(this.modalElementId).className = 'show';
-  //   document.getElementById(this.modalContainerElementId).className = 'flex';
-
-  // }
 
 
 

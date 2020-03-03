@@ -1,12 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-newtag-modal',
   templateUrl: './newtag-modal.component.html',
   styleUrls: ['./newtag-modal.component.css']
 })
-export class NewtagModalComponent implements OnInit {
+export class NewtagModalComponent implements OnInit, OnDestroy {
 
   // input: any;
 
@@ -24,7 +25,9 @@ export class NewtagModalComponent implements OnInit {
       return;
     }
     let output = {
-      name : name
+      name : name,
+      action: true,
+      function: 'new-tag'
     }
     this.modalService.sendOutput(output);
     this.modalService.destroy();
@@ -40,15 +43,21 @@ export class NewtagModalComponent implements OnInit {
 
   constructor(private modalService: ModalService) { }
 
+  private modalSubscription: Subscription;
+
   ngOnInit() {
 
-    this.modalService.cancelObservable.subscribe(
+    this.modalSubscription = this.modalService.cancelObservable.subscribe(
       () => {
         this.cancel();
       }
     )
     // this.getInput();
 
+  }
+
+  ngOnDestroy(){
+    this.modalSubscription.unsubscribe();
   }
 
 }
