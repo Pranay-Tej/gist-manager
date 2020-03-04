@@ -1,12 +1,16 @@
 <div class="tag-list-bar">
   <div class="tag-special">
     <div class="tag-special-item" (click)="refreshLibrary()">Refresh</div>
-    <div class="tag-special-item" (click)=getAllSnippets()>All Gists</div>
+    <div class="tag-special-item" (click)=getAllSnippets()>All Gists
+      <button (click)="downloadAllSnippets()">
+        Download All
+      </button>
+    </div>
     <div class="tag-special-item">Important</div>
   </div>
   <div class="tag-list">
-    <div class="tag-list-item" (click)="newTag()">Add Tag [+]</div>
-    <div class="tag-list-item" *ngFor="let tag of tag_list" (click)=getTagSnippets(tag.id)>
+    <div class="tag-list-item" (click)="openNewTagModal()">Add Tag [+]</div>
+    <div class="tag-list-item" *ngFor="let tag of tag_list; trackBy:trackTag" (click)=getTagSnippets(tag.id)>
       {{ tag.name }}
       <button (click)="deleteTag(tag.id)">[X]</button>
     </div>

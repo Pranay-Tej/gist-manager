@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+
+  #DATABASE
+  mongo:
+    image: mongo:4.2.3
+    restart: always
+    network_mode: 'host'
+    volumes:
+      - /data/mongo:/data/db
+    ports:
+      - "27017:27017"
+  
+  #BACKEND
+  gistservice:
+    build: ./gist-service
+    restart: always
+    network_mode: 'host'
+    depends_on:
+      - mongo
+  
+  #FRONTEND
+  # snippet-ui:
+  #   build: ./angular-ui/snippet-ui
+  #   restart: always
+  #   network_mode: 'host'
+  #   ports:
+  #     - "80:80"

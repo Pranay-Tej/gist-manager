@@ -14,7 +14,7 @@ export class GistServiceService {
   }
 
   getAllSnippets(username:string): Observable<Snippet[]>{
-    return this.http.get<Snippet[]>(environment.gistService + '/snippets/' + username + '/all')
+    return this.http.get<Snippet[]>(environment.gistService + '/snippets/all/' +  username)
   }
 
   getSnippetById(id:string): Observable<Snippet>{

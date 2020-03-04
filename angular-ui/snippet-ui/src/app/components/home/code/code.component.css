@@ -17,6 +17,9 @@
     color: antiquewhite;
 }
 
+.download{
+    cursor: pointer;
+}
 .code{
     /* margin-left: 5px; */
 }

@@ -17,6 +17,10 @@ public class TagService {
         return tagRepository.getAllUserTags(username);
     }
 
+    public Tag getTagById(String id){
+        return tagRepository.findById(id).get();
+    }
+
     public String add(String username, String name) {
         if (tagRepository.findUserTag(username, name) == null) {
             Tag tag = new Tag();
@@ -45,5 +49,9 @@ public class TagService {
         } else {
             return "Tag does not exist!";
         }
+    }
+
+    public List<Tag> getTagListFromIds(List<String> tag_ids) {
+        return tagRepository.getTagListFromIds(tag_ids);
     }
 }

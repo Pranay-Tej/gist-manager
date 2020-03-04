@@ -1,0 +1,5 @@
+<div class="main-newtagmodal-container">
+  Enter New Tag name: 
+  <input type="text" #name (keyup.enter)="addNewTag(name.value)">
+  <button (click)="addNewTag(name.value)">Add</button>
+</div>
