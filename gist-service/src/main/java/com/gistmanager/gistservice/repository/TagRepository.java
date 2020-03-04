@@ -15,4 +15,7 @@ public interface TagRepository extends MongoRepository<Tag, String> {
 
     @Query("{ $and: [ { username: ?0 }, { name: ?1 } ] }")
     Tag findUserTag(String username, String name);
+
+    @Query("{ id : { $in: ?0 } }")
+    List<Tag> getTagListFromIds(List<String> tag_ids);
 }

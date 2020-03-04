@@ -10,6 +10,8 @@ import { SnippetsComponent } from './components/home/snippets/snippets.component
 import { TagsComponent } from './components/home/tags/tags.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { NewtagModalComponent } from './components/popup-modals/newtag-modal/newtag-modal.component';
+import { EditTagsComponentComponent } from './components/home/code/edit-tags-modal/edit-tags-component/edit-tags-component.component';
 
 @NgModule({
    declarations: [
@@ -18,13 +20,19 @@ import { HttpClientModule } from '@angular/common/http';
       HomeComponent,
       CodeComponent,
       SnippetsComponent,
-      TagsComponent
+      TagsComponent,
+      NewtagModalComponent,
+      EditTagsComponentComponent
    ],
    imports: [
       BrowserModule,
       AppRoutingModule,
       HttpClientModule
    ],
+   entryComponents:[
+      NewtagModalComponent,
+      EditTagsComponentComponent
+    ],
    providers: [],
    bootstrap: [
       AppComponent

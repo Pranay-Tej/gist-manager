@@ -6,11 +6,14 @@
     <div *ngIf="snippet" class="code-info-item username">
       {{ snippet.username }}
     </div>
+    <div *ngIf="snippet" class="code-info-item download" (click)="openEditTagsModal()">
+      Edit Tags
+    </div>
     <div *ngIf="snippet" class="code-info-item download" (click)="downloadGist(snippet.id)">
       Download
     </div>
   </div>
-  <div class="code">
+  <div *ngIf="snippet" class="code">
     <!-- google prettify -->
     <!-- {{ snippet.code }} -->
     <pre class="prettyprint code-pre">
