@@ -67,16 +67,16 @@ export class CodeComponent implements OnInit {
         }
 
       );
-      // reset output subject
-      let reset_output = {
-        action: false
-      }
-      this.modalService.sendOutput(reset_output);
-
-      // refetch snippet from backend
-      this.communicationService.passId(this.snippet.id);
-
     }
+
+    this.snippet.tags = final;
+
+    // reset output subject
+    let reset_output = {
+      action: false
+    }
+    this.modalService.sendOutput(reset_output);
+
   }
 
 
@@ -107,7 +107,6 @@ export class CodeComponent implements OnInit {
         this.gistServiceService.getSnippetById(received_id).subscribe(
           (received_snippet: Snippet) => {
             this.snippet = received_snippet;
-            // console.log(this.snippet.code);
           }
         )
 

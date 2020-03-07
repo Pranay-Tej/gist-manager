@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators'
 import { Tag } from '../models/tag';
 
@@ -9,12 +9,6 @@ import { Tag } from '../models/tag';
   providedIn: 'root'
 })
 export class TagService {
-
-  private _refreshNeeded$ = new Subject<void>();
-
-  get refreshNeeded$() {
-    return this._refreshNeeded$;
-  }
 
   deleteTag(id: string) {
     return this.http.delete(environment.gistService + '/tags/' + id, {responseType: 'text'});
@@ -25,11 +19,7 @@ export class TagService {
   }
 
   newTag(username:string, name:string): Observable<string>{
-    return this.http.post<string>(environment.gistService + '/tags/' + username + '/' + name, {responseType: 'text'}).pipe(
-      tap( () => {
-        this.refreshNeeded$.next();
-      })
-    );
+    return this.http.post<string>(environment.gistService + '/tags/' + username + '/' + name, {responseType: 'text'});
   }
 
   getTagById(id: string): Observable<Tag>{

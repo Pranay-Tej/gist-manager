@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, OnChanges } from '@angular/core';
+import { Component, OnInit, DoCheck, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/tag';
 import { CommunicationService } from 'src/app/services/communication.service';
@@ -30,6 +30,7 @@ export class TagsComponent implements OnInit {
   }
 
   getUserTags() {
+    console.log('getting user tags')
     this.tagService.getUserTags(this.username).subscribe(
       (rec_tag_list) => {
         this.tag_list = rec_tag_list;
@@ -49,28 +50,10 @@ export class TagsComponent implements OnInit {
   }
 
   openNewTagModal() {
-
-    let name: string;
-    // let input = {
-    //   name:"abc"
-    // }
-    // this.modalService.init(NewtagModalComponent, inputs, {});
     this.modalService.init(NewtagModalComponent);
-    this.getUserTags();
-    // let name = prompt('Enter Tag Name:');
-    // if (name != null) {
-    //   this.tagService.newTag(this.username, name).subscribe(
-    //     (response) => {
-    //       console.log(response);
-    //     }
-    //   );
-    //   // this.getUserTags();
-    // } else {
-    //   alert('Invalid tag name!');
-    // }
   }
 
-  createNewTag(name){
+  createNewTag(name: string){
     console.log('creating tag...')
     console.log(name)
     this.tagService.newTag(this.username, name).subscribe(
@@ -82,18 +65,29 @@ export class TagsComponent implements OnInit {
     let reset_output = {
       action: false
     }
+    
+    let new_tag = {
+      id: '12345',
+      name: name,
+      username: this.username
+    }
+    
+    this.tag_list.push(new_tag)
+        
     this.modalService.sendOutput(reset_output);
-
-    this.getUserTags();
   }
 
   deleteTag(id: string) {
+
     this.tagService.deleteTag(id).subscribe(
       (response) => {
         console.log(response);
       }
     );
-    this.getUserTags();
+
+    let index = this.tag_list.findIndex( tag => tag.id == id );
+    this.tag_list.splice(index, 1);
+
   }
 
   getAllSnippets() {
@@ -121,12 +115,9 @@ export class TagsComponent implements OnInit {
   private modalSubscription: Subscription;
 
   ngOnInit() {
+   
     // this.getAllSnippets();
-    this.tagService.refreshNeeded$.subscribe(
-      () => {
-        this.getUserTags();
-      }
-    )
+
     this.getUserTags();
 
     this.modalService.output.subscribe(
@@ -134,12 +125,10 @@ export class TagsComponent implements OnInit {
         if(output.action != true || output.function != 'new-tag'){
           return;
         }
-        console.log('creating.....' + name)
         this.createNewTag(output.name);
       }
     );
 
   }
-  
 
 }

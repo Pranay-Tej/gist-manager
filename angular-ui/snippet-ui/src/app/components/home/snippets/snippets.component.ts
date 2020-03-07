@@ -46,6 +46,12 @@ export class SnippetsComponent implements OnInit {
     );
   }
 
+  trackSnippet(index, snippet){
+    if(snippet != null){
+      return snippet.id;
+    }
+    return null;
+  }
 
 
   constructor(private gistService: GistServiceService, private communicationService: CommunicationService) { }
