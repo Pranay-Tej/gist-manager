@@ -12,6 +12,7 @@
     <div class="tag-list-item" (click)="openNewTagModal()">Add Tag [+]</div>
     <div class="tag-list-item" *ngFor="let tag of tag_list; trackBy:trackTag" (click)=getTagSnippets(tag.id)>
       {{ tag.name }}
+      <button (click)="downloadTag(tag)">Download Tag</button>
       <button (click)="deleteTag(tag.id)">[X]</button>
     </div>
 </div>

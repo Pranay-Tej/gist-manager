@@ -28,6 +28,16 @@ export class TagsComponent implements OnInit {
     link.click();
     link.remove();
   }
+  
+  downloadTag(tag: Tag){
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', environment.gistService + '/download/tag/' + tag.id);
+    link.setAttribute('download', tag.name + '.zip');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
 
   getUserTags() {
     console.log('getting user tags')
