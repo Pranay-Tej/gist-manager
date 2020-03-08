@@ -53,27 +53,29 @@ export class TagsComponent implements OnInit {
     this.modalService.init(NewtagModalComponent);
   }
 
-  createNewTag(name: string){
+  createNewTag(name: string) {
     console.log('creating tag...')
     console.log(name)
     this.tagService.newTag(this.username, name).subscribe(
-      (response) => {
-        console.log(response);
+      (new_tag) => {
+        if (new_tag != null) {
+          this.tag_list.push(new_tag);
+        }
       }
     );
 
     let reset_output = {
       action: false
     }
-    
-    let new_tag = {
-      id: '12345',
-      name: name,
-      username: this.username
-    }
-    
-    this.tag_list.push(new_tag)
-        
+
+    // let new_tag = {
+    //   id: '12345',
+    //   name: name,
+    //   username: this.username
+    // }
+
+    // this.tag_list.push(new_tag)
+
     this.modalService.sendOutput(reset_output);
   }
 
@@ -81,12 +83,17 @@ export class TagsComponent implements OnInit {
 
     this.tagService.deleteTag(id).subscribe(
       (response) => {
-        console.log(response);
+        if (response == true) {
+          let index = this.tag_list.findIndex(tag => tag.id == id);
+          this.tag_list.splice(index, 1);
+
+        }
+        // console.log(response);
       }
     );
 
-    let index = this.tag_list.findIndex( tag => tag.id == id );
-    this.tag_list.splice(index, 1);
+    // let index = this.tag_list.findIndex(tag => tag.id == id);
+    // this.tag_list.splice(index, 1);
 
   }
 
@@ -98,8 +105,8 @@ export class TagsComponent implements OnInit {
     this.communicationService.passTagId(id);
   }
 
-  trackTag(index, tag){
-    if(tag != null){
+  trackTag(index, tag) {
+    if (tag != null) {
       return tag.id;
     }
     return null;
@@ -115,14 +122,14 @@ export class TagsComponent implements OnInit {
   private modalSubscription: Subscription;
 
   ngOnInit() {
-   
+
     // this.getAllSnippets();
 
     this.getUserTags();
 
     this.modalService.output.subscribe(
       output => {
-        if(output.action != true || output.function != 'new-tag'){
+        if (output.action != true || output.function != 'new-tag') {
           return;
         }
         this.createNewTag(output.name);

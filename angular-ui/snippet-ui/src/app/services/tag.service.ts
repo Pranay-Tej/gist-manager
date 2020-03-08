@@ -10,22 +10,28 @@ import { Tag } from '../models/tag';
 })
 export class TagService {
 
-  deleteTag(id: string) {
-    return this.http.delete(environment.gistService + '/tags/' + id, {responseType: 'text'});
-  }
-
+  
   getUserTags(username:string): Observable<Tag[]>{
     return this.http.get<Tag[]>(environment.gistService + '/tags/user/' + username);
   }
-
-  newTag(username:string, name:string): Observable<string>{
-    return this.http.post<string>(environment.gistService + '/tags/' + username + '/' + name, {responseType: 'text'});
+  
+  newTag(username:string, name:string): Observable<Tag>{
+    return this.http.post<Tag>(environment.gistService + '/tags/' + username + '/' + name, {});
+  }
+  
+  deleteTag(id: string): Observable<boolean> {
+    return this.http.delete<boolean>(environment.gistService + '/tags/' + id);
   }
 
   getTagById(id: string): Observable<Tag>{
     return this.http.get<Tag>(environment.gistService + '/tags/' + id);
   }
   
+
+  updateTagsOfSnippet(id: string, updated_tags: string[]): Observable<boolean> {
+    return this.http.put<boolean>(environment.gistService + '/snippets/updateTags/' + id, updated_tags);
+  }
+
   addTagsToSnippet(id: string, additions: string[]){
     return this.http.put(environment.gistService + '/snippets/addTags/' + id, additions);
   }

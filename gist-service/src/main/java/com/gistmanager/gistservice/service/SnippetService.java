@@ -168,6 +168,18 @@ public class SnippetService {
 
     }
 
+    public Boolean updateTagsOfSnippet(String id, List<String> tags) {
+
+        if(snippetRepository.findById(id) == null){
+            return false;
+        }
+
+        Snippet snippet = snippetRepository.findById(id).get();
+        snippet.setTags(tags);
+        snippetRepository.save(snippet);
+        return true;
+    }
+
     // download w/o frontend
 //    public String downloadSnippetById(String id) {
 //        Snippet snippet = snippetRepository.findById(id).get();

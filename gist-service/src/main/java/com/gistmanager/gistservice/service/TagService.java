@@ -21,15 +21,15 @@ public class TagService {
         return tagRepository.findById(id).get();
     }
 
-    public String add(String username, String name) {
+    public Tag add(String username, String name) {
         if (tagRepository.findUserTag(username, name) == null) {
             Tag tag = new Tag();
             tag.setUsername(username);
             tag.setName(name);
             tagRepository.save(tag);
-            return "Tag successfully added";
+            return tagRepository.findUserTag(username, name);
         } else {
-            return "Tag already exists!";
+            return null;
         }
     }
 
@@ -42,12 +42,12 @@ public class TagService {
         }
     }
 
-    public String delete(String id) {
+    public boolean delete(String id) {
         if (tagRepository.existsById(id) == true) {
             tagRepository.deleteById(id);
-            return "Tag successfully deleted";
+            return true;
         } else {
-            return "Tag does not exist!";
+            return false;
         }
     }
 
