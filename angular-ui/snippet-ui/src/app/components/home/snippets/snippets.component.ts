@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Snippet } from 'src/app/models/snippet';
 import { GistServiceService } from 'src/app/services/gist-service.service';
 import { CommunicationService } from 'src/app/services/communication.service';
+import { UsernameService } from 'src/app/services/username.service';
 
 @Component({
   selector: 'app-snippets',
@@ -13,8 +14,11 @@ export class SnippetsComponent implements OnInit {
   snippet_list: Snippet[] = [];
   username: string;
 
+  getUsername(){
+    this.username = this.usernameService.getUsername();
+  }
+
   getAllSnippets() {
-    this.username = 'Pranay-Tej';
     this.gistService.getAllSnippets(this.username).subscribe(
       (received_snippet_list: Snippet[]) => {
         this.snippet_list = received_snippet_list;
@@ -54,9 +58,12 @@ export class SnippetsComponent implements OnInit {
   }
 
 
-  constructor(private gistService: GistServiceService, private communicationService: CommunicationService) { }
+  constructor(private gistService: GistServiceService,
+    private communicationService: CommunicationService,
+    private usernameService:UsernameService) { }
 
   ngOnInit() {
+    this.getUsername();
     // this.getAllSnippets();
     this.loadTagSnippets();
     this.communicationService.all.subscribe(

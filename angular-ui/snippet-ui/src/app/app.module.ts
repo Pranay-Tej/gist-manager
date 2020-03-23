@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { UserComponent } from './components/user/user.component'
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
 import { CodeComponent } from './components/home/code/code.component';
@@ -17,6 +18,7 @@ import { InputModalComponent } from './components/popup-modals/input-modal/input
 @NgModule({
    declarations: [
       AppComponent,
+      UserComponent,
       NavBarComponent,
       HomeComponent,
       CodeComponent,

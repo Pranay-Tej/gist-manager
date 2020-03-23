@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TagService } from 'src/app/services/tag.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { Subscription } from 'rxjs';
+import { UsernameService } from 'src/app/services/username.service';
 
 @Component({
   selector: 'app-edit-tags-component',
@@ -10,13 +11,17 @@ import { Subscription } from 'rxjs';
 })
 export class EditTagsComponentComponent implements OnInit, OnDestroy {
   
-  username: string = 'Pranay-Tej';
+  username: string;
 
   all_tag_list = [];
   tag_id_list = [];
   tag_id_set;
 
   // tags_set = new Set<string>(["one", "two", "three"]);
+
+  getUsername(){
+    this.username = this.usernameService.getUsername();
+  }
 
   getUserTags() {
     this.tagService.getUserTags(this.username).subscribe(
@@ -77,12 +82,14 @@ export class EditTagsComponentComponent implements OnInit, OnDestroy {
 
   constructor(
     private tagService:TagService,
-    private modalService:ModalService
+    private modalService:ModalService,
+    private usernameService: UsernameService
     ) { }
 
     private modalSubscription: Subscription;
 
   ngOnInit() {
+    this.getUsername();
     this.getInput();
     this.getUserTags();
 

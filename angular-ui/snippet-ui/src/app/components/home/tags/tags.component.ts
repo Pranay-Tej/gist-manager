@@ -8,6 +8,7 @@ import { ModalService } from 'src/app/services/modal.service';
 import { NewtagModalComponent } from '../../popup-modals/newtag-modal/newtag-modal.component';
 import { Subscription } from 'rxjs';
 import { InputModalComponent } from '../../popup-modals/input-modal/input-modal.component';
+import { UsernameService } from 'src/app/services/username.service';
 
 @Component({
   selector: 'app-tags',
@@ -18,7 +19,11 @@ export class TagsComponent implements OnInit {
 
   tag_list: Tag[] = [];
 
-  username: string = 'Pranay-Tej';
+  username: string;
+
+  getUsername(){
+    this.username = this.usernameService.getUsername();
+  }
 
   downloadAllSnippets() {
     const link = document.createElement('a');
@@ -133,7 +138,8 @@ export class TagsComponent implements OnInit {
     private tagService: TagService,
     private communicationService: CommunicationService,
     private gistServiceService: GistServiceService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private usernameService:UsernameService
   ) { }
 
   private modalSubscription: Subscription;
@@ -142,6 +148,7 @@ export class TagsComponent implements OnInit {
 
     // this.getAllSnippets();
 
+    this.getUsername();
     this.getUserTags();
 
     this.modalService.output.subscribe(
