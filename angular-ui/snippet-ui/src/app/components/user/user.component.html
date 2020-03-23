@@ -1,0 +1,5 @@
+<div class="main-user-container">
+  Enter username: 
+  <input type="text" #userInput (keyup.enter)="setUsername(userInput.value)">
+  <button (click)="setUsername(userInput.value)">OK</button>
+</div>

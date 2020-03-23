@@ -147,7 +147,7 @@ public class GistController {
 
     @PostMapping("/tags/{username}/{name}")
     ResponseEntity<?> addTag(@PathVariable String username, @PathVariable String name) {
-        responseEntity = new ResponseEntity<String>(tagService.add(username, name), HttpStatus.OK);
+        responseEntity = new ResponseEntity<Tag>(tagService.add(username, name), HttpStatus.OK);
         return responseEntity;
     }
 
@@ -160,13 +160,19 @@ public class GistController {
     @DeleteMapping("/tags/{id}")
     ResponseEntity<?> deleteTag(@PathVariable String id) {
         snippetService.deleteTagOperation(id);
-        responseEntity = new ResponseEntity<String>(tagService.delete(id), HttpStatus.OK);
+        responseEntity = new ResponseEntity<Boolean>(tagService.delete(id), HttpStatus.OK);
         return responseEntity;
     }
 
     @GetMapping("/snippets/tag/{tag_id}")
     ResponseEntity<?> getTagSnippets(@PathVariable String tag_id) {
         responseEntity = new ResponseEntity<List<Snippet>>(snippetService.getSnippetsByTag(tag_id), HttpStatus.OK);
+        return responseEntity;
+    }
+
+    @PutMapping("/snippets/updateTags/{id}")
+    ResponseEntity<?> updateTagsOfSnippet(@PathVariable String id, @RequestBody List<String> tags){
+        responseEntity = new ResponseEntity<Boolean>(snippetService.updateTagsOfSnippet(id,tags), HttpStatus.OK);
         return responseEntity;
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, OnChanges } from '@angular/core';
+import { Component, OnInit, DoCheck, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/tag';
 import { CommunicationService } from 'src/app/services/communication.service';
@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment';
 import { ModalService } from 'src/app/services/modal.service';
 import { NewtagModalComponent } from '../../popup-modals/newtag-modal/newtag-modal.component';
 import { Subscription } from 'rxjs';
+import { InputModalComponent } from '../../popup-modals/input-modal/input-modal.component';
+import { UsernameService } from 'src/app/services/username.service';
 
 @Component({
   selector: 'app-tags',
@@ -17,7 +19,11 @@ export class TagsComponent implements OnInit {
 
   tag_list: Tag[] = [];
 
-  username: string = 'Pranay-Tej';
+  username: string;
+
+  getUsername(){
+    this.username = this.usernameService.getUsername();
+  }
 
   downloadAllSnippets() {
     const link = document.createElement('a');
@@ -28,8 +34,19 @@ export class TagsComponent implements OnInit {
     link.click();
     link.remove();
   }
+  
+  downloadTag(tag: Tag){
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', environment.gistService + '/download/tag/' + tag.id);
+    link.setAttribute('download', tag.name + '.zip');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
 
   getUserTags() {
+    console.log('getting user tags')
     this.tagService.getUserTags(this.username).subscribe(
       (rec_tag_list) => {
         this.tag_list = rec_tag_list;
@@ -50,50 +67,56 @@ export class TagsComponent implements OnInit {
 
   openNewTagModal() {
 
-    let name: string;
-    // let input = {
-    //   name:"abc"
-    // }
-    // this.modalService.init(NewtagModalComponent, inputs, {});
-    this.modalService.init(NewtagModalComponent);
-    this.getUserTags();
-    // let name = prompt('Enter Tag Name:');
-    // if (name != null) {
-    //   this.tagService.newTag(this.username, name).subscribe(
-    //     (response) => {
-    //       console.log(response);
-    //     }
-    //   );
-    //   // this.getUserTags();
-    // } else {
-    //   alert('Invalid tag name!');
-    // }
+    let input ={
+      message: 'Enter Tag Name: ',
+      function: 'new-tag'
+    }
+
+    this.modalService.init(InputModalComponent, input);
   }
 
-  createNewTag(name){
+  createNewTag(name: string) {
     console.log('creating tag...')
     console.log(name)
     this.tagService.newTag(this.username, name).subscribe(
-      (response) => {
-        console.log(response);
+      (new_tag) => {
+        if (new_tag != null) {
+          this.tag_list.push(new_tag);
+        }
       }
     );
 
     let reset_output = {
       action: false
     }
-    this.modalService.sendOutput(reset_output);
 
-    this.getUserTags();
+    // let new_tag = {
+    //   id: '12345',
+    //   name: name,
+    //   username: this.username
+    // }
+
+    // this.tag_list.push(new_tag)
+
+    this.modalService.sendOutput(reset_output);
   }
 
   deleteTag(id: string) {
+
     this.tagService.deleteTag(id).subscribe(
       (response) => {
-        console.log(response);
+        if (response == true) {
+          let index = this.tag_list.findIndex(tag => tag.id == id);
+          this.tag_list.splice(index, 1);
+
+        }
+        // console.log(response);
       }
     );
-    this.getUserTags();
+
+    // let index = this.tag_list.findIndex(tag => tag.id == id);
+    // this.tag_list.splice(index, 1);
+
   }
 
   getAllSnippets() {
@@ -104,8 +127,8 @@ export class TagsComponent implements OnInit {
     this.communicationService.passTagId(id);
   }
 
-  trackTag(index, tag){
-    if(tag != null){
+  trackTag(index, tag) {
+    if (tag != null) {
       return tag.id;
     }
     return null;
@@ -115,31 +138,28 @@ export class TagsComponent implements OnInit {
     private tagService: TagService,
     private communicationService: CommunicationService,
     private gistServiceService: GistServiceService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private usernameService:UsernameService
   ) { }
 
   private modalSubscription: Subscription;
 
   ngOnInit() {
+
     // this.getAllSnippets();
-    this.tagService.refreshNeeded$.subscribe(
-      () => {
-        this.getUserTags();
-      }
-    )
+
+    this.getUsername();
     this.getUserTags();
 
     this.modalService.output.subscribe(
       output => {
-        if(output.action != true || output.function != 'new-tag'){
+        if (output.action != true || output.function != 'new-tag') {
           return;
         }
-        console.log('creating.....' + name)
-        this.createNewTag(output.name);
+        this.createNewTag(output.data);
       }
     );
 
   }
-  
 
 }

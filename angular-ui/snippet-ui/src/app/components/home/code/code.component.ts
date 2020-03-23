@@ -37,46 +37,55 @@ export class CodeComponent implements OnInit {
   }
 
   modifyTags(final: string[]) {
-    let initial = this.snippet.tags;
-    if (initial == null) {
-      initial = [];
-    }
-    // console.log('modify: initial \n' + initial);
-    // console.log('modify: final \n' + final);
 
-    let additions = final.filter(
-      x => { return !initial.includes(x) }
+    this.tagService.updateTagsOfSnippet(this.snippet.id, final).subscribe(
+      (response) => {
+        if (response == true) {
+          this.snippet.tags = final;
+        }
+      }
     );
 
-    let removals = initial.filter(
-      x => { return !final.includes(x) }
-    )
-    console.log('additions: ' + additions);
-    console.log('removals: ' + removals);
-    if (additions.length != 0 && additions != null) {
-      this.tagService.addTagsToSnippet(this.snippet.id, additions).subscribe(
-        response => {
-          console.log(response);
-        }
-      );
+    // let initial = this.snippet.tags;
+    // if (initial == null) {
+    //   initial = [];
+    // }
+    // // console.log('modify: initial \n' + initial);
+    // // console.log('modify: final \n' + final);
+
+    // let additions = final.filter(
+    //   x => { return !initial.includes(x) }
+    // );
+
+    // let removals = initial.filter(
+    //   x => { return !final.includes(x) }
+    // )
+    // console.log('additions: ' + additions);
+    // console.log('removals: ' + removals);
+    // if (additions.length != 0 && additions != null) {
+    //   this.tagService.addTagsToSnippet(this.snippet.id, additions).subscribe(
+    //     response => {
+    //       console.log(response);
+    //     }
+    //   );
+    // }
+    // if (removals.length != 0 && removals != null) {
+    //   this.tagService.removeTagsFromSnipept(this.snippet.id, removals).subscribe(
+    //     response => {
+    //       console.log(response);
+    //     }
+
+    //   );
+    // }
+
+    // this.snippet.tags = final;
+
+    // reset output subject
+    let reset_output = {
+      action: false
     }
-    if (removals.length != 0 && removals != null) {
-      this.tagService.removeTagsFromSnipept(this.snippet.id, removals).subscribe(
-        response => {
-          console.log(response);
-        }
+    this.modalService.sendOutput(reset_output);
 
-      );
-      // reset output subject
-      let reset_output = {
-        action: false
-      }
-      this.modalService.sendOutput(reset_output);
-
-      // refetch snippet from backend
-      this.communicationService.passId(this.snippet.id);
-
-    }
   }
 
 
@@ -107,7 +116,6 @@ export class CodeComponent implements OnInit {
         this.gistServiceService.getSnippetById(received_id).subscribe(
           (received_snippet: Snippet) => {
             this.snippet = received_snippet;
-            // console.log(this.snippet.code);
           }
         )
 
