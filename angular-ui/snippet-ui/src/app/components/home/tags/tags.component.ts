@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { ModalService } from 'src/app/services/modal.service';
 import { NewtagModalComponent } from '../../popup-modals/newtag-modal/newtag-modal.component';
 import { Subscription } from 'rxjs';
+import { InputModalComponent } from '../../popup-modals/input-modal/input-modal.component';
 
 @Component({
   selector: 'app-tags',
@@ -60,7 +61,13 @@ export class TagsComponent implements OnInit {
   }
 
   openNewTagModal() {
-    this.modalService.init(NewtagModalComponent);
+
+    let input ={
+      message: 'Enter Tag Name: ',
+      function: 'new-tag'
+    }
+
+    this.modalService.init(InputModalComponent, input);
   }
 
   createNewTag(name: string) {
@@ -142,7 +149,7 @@ export class TagsComponent implements OnInit {
         if (output.action != true || output.function != 'new-tag') {
           return;
         }
-        this.createNewTag(output.name);
+        this.createNewTag(output.data);
       }
     );
 

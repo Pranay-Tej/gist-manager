@@ -1,0 +1,5 @@
+<div class="main-inputmodal-container">
+  {{ message }}
+  <input type="text" #userInput (keyup.enter)="sendUserInput(userInput.value)">
+  <button (click)="sendUserInput(userInput.value)">OK</button>
+</div>
