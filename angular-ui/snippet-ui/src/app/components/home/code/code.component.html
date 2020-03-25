@@ -1,18 +1,21 @@
 <div class="code-main-container">
-  <div class="code-info">
-    <div *ngIf="snippet" class="code-info-item code-title">
-      {{ snippet.filename }}
+  <div class="code-toolbar">
+    <div class="code-toolbar-section">
+      <div *ngIf="snippet" class="code-toolbar-item">
+        {{ snippet.filename }}
+      </div>
     </div>
-    <div *ngIf="snippet" class="code-info-item username">
-      {{ snippet.username }}
+    <div class="code-toolbar-section">
+      <div *ngIf="snippet" class="code-toolbar-item edit-tags" (click)="openEditTagsModal()" class="button">
+        Tags <i class="fas fa-edit"></i>
+      </div>
+      <div *ngIf="snippet" class="code-toolbar-item download" (click)="downloadGist(snippet.id)" class="button">
+        <i class="fas fa-arrow-circle-down"></i>
+      </div>
     </div>
-    <div *ngIf="snippet" class="code-info-item download" (click)="openEditTagsModal()">
-      Edit Tags
-    </div>
-    <div *ngIf="snippet" class="code-info-item download" (click)="downloadGist(snippet.id)">
-      Download
-    </div>
+    
   </div>
+  
   <div class="code">
     <!-- google prettify -->
     <!-- {{ snippet.code }} -->
