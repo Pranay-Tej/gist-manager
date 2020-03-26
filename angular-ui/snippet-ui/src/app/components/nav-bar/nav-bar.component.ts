@@ -31,6 +31,15 @@ export class NavBarComponent implements OnInit {
   //   this.modalService.sendOutput(reset_output);
   // }
 
+  openGitLab(){
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', 'https://gitlab.com/pranay_teja/gist-manager');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    
+  }
   constructor(
     // private modalService: ModalService,
     // private usernameService: UsernameService,

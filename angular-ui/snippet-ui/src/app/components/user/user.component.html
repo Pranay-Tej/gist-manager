@@ -1,5 +1,10 @@
 <div class="main-user-container">
-  Enter username: 
-  <input type="text" #userInput (keyup.enter)="setUsername(userInput.value)">
-  <button (click)="setUsername(userInput.value)">OK</button>
+  <div class="message">
+    Enter username
+  </div>
+  <input type="text" #userInput id="userInput" placeholder="Pranay-Tej" (keyup.enter)="setUsername(userInput.value)"
+    autofocus>
+  <button (click)="setUsername(userInput.value)" class="button">
+    <i class="fas fa-check fa-2x"></i>
+  </button>
 </div>

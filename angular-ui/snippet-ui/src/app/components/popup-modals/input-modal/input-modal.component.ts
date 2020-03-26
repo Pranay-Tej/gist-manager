@@ -58,7 +58,10 @@ export class InputModalComponent implements OnInit, OnDestroy {
       () => {
         this.cancel();
       }
-    )
+    );
+
+    document.getElementById("userInput").focus();
+
   }
 
   ngOnDestroy(){
