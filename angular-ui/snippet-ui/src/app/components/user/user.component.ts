@@ -21,6 +21,7 @@ export class UserComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    document.getElementById("userInput").focus();
   }
 
 }

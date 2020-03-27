@@ -1,7 +1,9 @@
 <div class="main-menu">
   <div class="main-menu-section">
-    <div class="main-menu-item main-menu-button" [routerLink]="['/library']">Home</div>
-    <div class="main-menu-item main-menu-button">Guide</div>
+    <div class="main-menu-item main-menu-button" [routerLink]="['/library']">Library</div>
+    <div class="main-menu-item main-menu-button" (click)="openGitLab()" >
+      <i class="fab fa-gitlab fa-lg"></i>
+    </div>
   </div>
   <div class="main-menu-section">
     <div class="main-menu-item main-menu-button" [routerLink]="['/user']" >User</div>

@@ -1,8 +1,41 @@
-.main-inputmodal-container{
+.main-inputmodal-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
     height: 100%;
     width: 100%;
+    background-color: rgb(29, 29, 29);
+    font-size: 20px;
+}
 
+.message {
+    font-weight: bold;
+    font-size: 30px;
+    color: rgb(35, 243, 139);
+}
+
+#userInput {
+    border: 3px solid rgba(0, 0, 0, 0);
+    padding: 30px;
+    height: 30px;
+    width: 75%;
+    background-color: rgb(224, 224, 224);
+    text-align: center;
+}
+
+#userInput:focus{
+    border: 3px solid rgb(35, 243, 139);
+}
+
+.button {
+    background-color: rgb(8, 128, 62);
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    margin: 0 1px;
+}
+
+.button:hover {
+    background-color: rgb(150, 51, 5);
 }

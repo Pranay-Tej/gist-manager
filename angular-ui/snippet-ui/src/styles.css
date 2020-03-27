@@ -2,7 +2,7 @@
 
 html {
   box-sizing: border-box;
-  background-color: grey;
+  font-family: 'Roboto', sans-serif;
 }
 
 *, *:before, *:after {
@@ -13,4 +13,25 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+}
+
+
+/*  scrollbar styles */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #969494; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(102, 102, 102); 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(68, 68, 68); 
 }

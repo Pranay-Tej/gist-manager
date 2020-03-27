@@ -1,6 +1,16 @@
-<div *ngFor="let tag of all_tag_list" class="checkbox-container">
-  <input type ="checkbox" (click)="updateSet($event, tag.id)" [checked]="contains(tag.id)" />
-  <div>{{ tag.name }}</div>
-</div>
+<div class="edit-tags-main-container">
+  <div class="tag-list">
 
-<button (click)="final()" >OK</button>
+    <div *ngFor="let tag of all_tag_list" class="tag-container">
+      <label class="checkbox-container">
+        <input type="checkbox" class="tag-checkbox" (click)="updateSet($event, tag.id)" [checked]="contains(tag.id)" />
+        <span class="checkmark"></span>
+      </label>
+      <div class="tag-name">{{ tag.name }}</div>
+    </div>
+
+  </div>
+  <button (click)="final()" class="button">
+    <i class="fas fa-check fa-2x"></i>
+  </button>
+</div>

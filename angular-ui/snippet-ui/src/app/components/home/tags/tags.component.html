@@ -1,18 +1,56 @@
 <div class="tag-list-bar">
   <div class="tag-special">
-    <div class="tag-special-item" (click)="refreshLibrary()">Refresh</div>
-    <div class="tag-special-item" (click)=getAllSnippets()>All Gists
-      <button (click)="downloadAllSnippets()">
-        Download All
-      </button>
+    <div class="tag-special-item" (click)="refreshLibrary()">
+      <div class="tag-item-section">
+        Refresh
+      </div>
+      <div class="tag-item-section">
+        <button class="button">
+          <i class="fas fa-redo-alt"></i>
+        </button>
+      </div>
     </div>
-    <div class="tag-special-item">Important</div>
+    <div class="tag-special-item" (click)="getAllSnippets()">
+      <div class="tag-item-section">
+        All Gists
+      </div>
+      <div class="tag-item-section">
+        <button (click)="downloadAllSnippets()" class="button">
+          <i class="fas fa-arrow-circle-down"></i>
+        </button>
+      </div>
+    </div>
+    <div class="tag-special-item" (click)="openNewTagModal()">
+      <div class="tag-item-section">
+        New Tag
+      </div>
+      <div class="tag-item-section">
+        <button class="button">
+          <i class="fas fa-plus-square"></i>
+        </button>
+      </div>
+    </div>
+    <!-- <div class="tag-special-item">
+      <div class="tag-item-section">
+        Important
+      </div>
+      <div class="tag-item-section">
+        <i class="fas fa-star"></i>
+      </div>
+    </div> -->
   </div>
   <div class="tag-list">
-    <div class="tag-list-item" (click)="openNewTagModal()">Add Tag [+]</div>
     <div class="tag-list-item" *ngFor="let tag of tag_list; trackBy:trackTag" (click)=getTagSnippets(tag.id)>
-      {{ tag.name }}
-      <button (click)="downloadTag(tag)">Download Tag</button>
-      <button (click)="deleteTag(tag.id)">[X]</button>
+      <div class="tag-item-section">
+        {{ tag.name }}
+      </div>
+      <div class="tag-item-section">
+        <button (click)="downloadTag(tag)" class="button">
+          <i class="fas fa-arrow-circle-down"></i>
+        </button>
+        <button (click)="deleteTag(tag.id)" class="button">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
     </div>
-</div>
+  </div>
