@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class GistServiceService {
 
-  refreshLibrary(username:string){
+  updateLibrary(username:string){
     return this.http.get(environment.gistService + '/refresh/' + username, {responseType: 'text'})
   }
 

@@ -14,6 +14,7 @@ export class InputModalComponent implements OnInit, OnDestroy {
   function: string;
 
   getInput(){
+    console.log("InputModalComponent: Receiving Input")
     this.modalService.input.subscribe(
       input => {
         this.message = input.message;

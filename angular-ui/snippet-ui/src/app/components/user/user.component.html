@@ -1,8 +1,8 @@
 <div class="main-user-container">
   <div class="message">
-    Enter username
+    Enter GitHub username
   </div>
-  <input type="text" #userInput id="userInput" placeholder="Pranay-Tej" (keyup.enter)="setUsername(userInput.value)"
+  <input type="text" #userInput id="userInput" placeholder="ex:Pranay-Tej" (keyup.enter)="setUsername(userInput.value)"
     autofocus>
   <button (click)="setUsername(userInput.value)" class="button">
     <i class="fas fa-check fa-2x"></i>
