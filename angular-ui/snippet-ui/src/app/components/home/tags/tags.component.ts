@@ -21,7 +21,7 @@ export class TagsComponent implements OnInit {
 
   username: string;
 
-  getUsername(){
+  getUsername() {
     this.username = this.usernameService.getUsername();
   }
 
@@ -34,8 +34,8 @@ export class TagsComponent implements OnInit {
     link.click();
     link.remove();
   }
-  
-  downloadTag(tag: Tag){
+
+  downloadTag(tag: Tag) {
     const link = document.createElement('a');
     link.setAttribute('target', '_blank');
     link.setAttribute('href', environment.gistService + '/download/tag/' + tag.id);
@@ -54,10 +54,10 @@ export class TagsComponent implements OnInit {
     );
   }
 
-  refreshLibrary() {
-    let refresh = confirm('Refresh Library?');
+  updateLibrary() {
+    let refresh = confirm('Update Library from GitHub?');
     if (refresh) {
-      this.gistServiceService.refreshLibrary(this.username).subscribe(
+      this.gistServiceService.updateLibrary(this.username).subscribe(
         (response) => {
           console.log(response);
         }
@@ -67,12 +67,18 @@ export class TagsComponent implements OnInit {
 
   openNewTagModal() {
 
-    let input ={
-      message: 'Enter Tag Name: ',
-      function: 'new-tag'
+    // let input ={
+    //   message: 'Enter Tag Name: ',
+    //   function: 'new-tag'
+    // }
+
+    // this.modalService.init(InputModalComponent, input);
+
+    let new_tag = window.prompt('Enter New Tag name')
+    if (new_tag != null && new_tag != '') {
+      this.createNewTag(new_tag)
     }
 
-    this.modalService.init(InputModalComponent, input);
   }
 
   createNewTag(name: string) {
@@ -102,17 +108,19 @@ export class TagsComponent implements OnInit {
   }
 
   deleteTag(id: string) {
+    let delete_tag = confirm('Delete Tag?');
+    if (delete_tag) {
+      this.tagService.deleteTag(id).subscribe(
+        (response) => {
+          if (response == true) {
+            let index = this.tag_list.findIndex(tag => tag.id == id);
+            this.tag_list.splice(index, 1);
 
-    this.tagService.deleteTag(id).subscribe(
-      (response) => {
-        if (response == true) {
-          let index = this.tag_list.findIndex(tag => tag.id == id);
-          this.tag_list.splice(index, 1);
-
+          }
+          // console.log(response);
         }
-        // console.log(response);
-      }
-    );
+      );
+    }
 
     // let index = this.tag_list.findIndex(tag => tag.id == id);
     // this.tag_list.splice(index, 1);
@@ -139,7 +147,7 @@ export class TagsComponent implements OnInit {
     private communicationService: CommunicationService,
     private gistServiceService: GistServiceService,
     private modalService: ModalService,
-    private usernameService:UsernameService
+    private usernameService: UsernameService
   ) { }
 
   private modalSubscription: Subscription;
