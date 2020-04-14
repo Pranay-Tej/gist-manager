@@ -1,33 +1,21 @@
 package com.gistmanager.gistservice.service;
 
+import com.gistmanager.gistservice.exceptions.GistNotFoundException;
+import com.gistmanager.gistservice.exceptions.NullValueException;
 import com.gistmanager.gistservice.model.GitHubModel.FileInfo;
 import com.gistmanager.gistservice.model.GitHubModel.GistInfo;
 import com.gistmanager.gistservice.model.GitHubModel.UserInfo;
 import com.gistmanager.gistservice.model.Snippet;
-import com.gistmanager.gistservice.model.Tag;
 import com.gistmanager.gistservice.repository.SnippetRepository;
 import com.gistmanager.gistservice.repository.TagRepository;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Updates;
-import com.mongodb.client.result.UpdateResult;
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class SnippetService {
@@ -38,7 +26,13 @@ public class SnippetService {
     @Autowired
     SnippetRepository snippetRepository;
 
-    public String refreshLibrary(String username) {
+    public String refreshLibrary(String username) throws NullValueException {
+
+
+        if (username == null || username == "") {
+            throw new NullValueException("Username is null");
+        }
+
 
         System.out.println("Updating Library...");
 
@@ -77,12 +71,20 @@ public class SnippetService {
         return "Library Successfully Refreshed";
     }
 
-    public List<Snippet> getUserSnippets(String username) {
+    public List<Snippet> getUserSnippets(String username) throws GistNotFoundException {
+        if (username == null || username == "") {
+            throw new GistNotFoundException("No Gists for this Username");
+        }
         return snippetRepository.getAllUserSnippets(username);
     }
 
-    public Snippet getSnippetById(String id) {
-        return snippetRepository.findById(id).get();
+    public Snippet getSnippetById(String id) throws GistNotFoundException {
+//        System.out.println("SnippetId: " + id);
+        Snippet snippet = snippetRepository.findById(id).orElse(null);
+        if(snippet == null){
+            throw new GistNotFoundException("Snippet Not Found!");
+        }
+        return snippet;
     }
 
     public List<Snippet> getSnippetsByTag(String tag_id) {
@@ -101,70 +103,70 @@ public class SnippetService {
 //        collection = database.getCollection("snippet");
 //    }
 
-    public boolean addTagsToSnippet(String id, List<String> tags) {
+    // public boolean addTagsToSnippet(String id, List<String> tags) {
 
-//        UpdateResult result = collection.updateOne(
-//                new BasicDBObject(DBCollection.ID_FIELD_NAME, id),
-//                Updates.addEachToSet(TAGS_FIELD, tags)
-//        );
-//        return result.getMatchedCount() == 1;
-//        snippetRepository.addTagsToSnippet(id, tags);
+    //    UpdateResult result = collection.updateOne(
+    //            new BasicDBObject(DBCollection.ID_FIELD_NAME, id),
+    //            Updates.addEachToSet(TAGS_FIELD, tags)
+    //    );
+    //    return result.getMatchedCount() == 1;
+    //    snippetRepository.addTagsToSnippet(id, tags);
 
-        Snippet snippet = snippetRepository.findById(id).get();
-//        System.out.println("------- Tags:" + tags);
-        List<String> tag_list = snippet.getTags();
-//        System.out.println("------- Before:" + tag_list);
-        if(tag_list == null){
-            tag_list = new ArrayList<>();
-        }
-        tag_list.addAll(tags);
-//        System.out.println("------- After:" + tag_list);
-        snippet.setTags(tag_list);
-        snippetRepository.save(snippet);
-        System.out.println("adding tags: " + tags);
-        return true;
-    }
+    //     Snippet snippet = snippetRepository.findById(id).get();
+    //    System.out.println("------- Tags:" + tags);
+    //     List<String> tag_list = snippet.getTags();
+    //    System.out.println("------- Before:" + tag_list);
+    //     if(tag_list == null){
+    //         tag_list = new ArrayList<>();
+    //     }
+    //     tag_list.addAll(tags);
+    //    System.out.println("------- After:" + tag_list);
+    //     snippet.setTags(tag_list);
+    //     snippetRepository.save(snippet);
+    //     System.out.println("adding tags: " + tags);
+    //     return true;
+    // }
 
-    public boolean removeTagsFromSnippet(String id, List<String> tags) {
+    // public boolean removeTagsFromSnippet(String id, List<String> tags) {
 
-        //        UpdateResult result = collection.updateOne(
-//                new BasicDBObject(DBCollection.ID_FIELD_NAME, id),
-//                Updates.pullAll(TAGS_FIELD, tags)
-//        );
-//        return result.getMatchedCount() == 1;
-        Snippet snippet = snippetRepository.findById(id).get();
-//        System.out.println("------- Tags:" + tags);
-        List<String> tag_list = snippet.getTags();
-//        System.out.println("------- Before:" + tag_list);
-        if(tag_list == null){
-            tag_list = new ArrayList<>();
-        }
-        tag_list.removeAll(tags);
-//        System.out.println("------- After:" + tag_list);
-        snippet.setTags(tag_list);
-        snippetRepository.save(snippet);
-        System.out.println("removing tags: " + tags);
-        return true;
-    }
+    //            UpdateResult result = collection.updateOne(
+    //            new BasicDBObject(DBCollection.ID_FIELD_NAME, id),
+    //            Updates.pullAll(TAGS_FIELD, tags)
+    //    );
+    //    return result.getMatchedCount() == 1;
+    //     Snippet snippet = snippetRepository.findById(id).get();
+    //    System.out.println("------- Tags:" + tags);
+    //     List<String> tag_list = snippet.getTags();
+    //    System.out.println("------- Before:" + tag_list);
+    //     if(tag_list == null){
+    //         tag_list = new ArrayList<>();
+    //     }
+    //     tag_list.removeAll(tags);
+    //    System.out.println("------- After:" + tag_list);
+    //     snippet.setTags(tag_list);
+    //     snippetRepository.save(snippet);
+    //     System.out.println("removing tags: " + tags);
+    //     return true;
+    // }
 
     @Autowired
     TagRepository tagRepository;
 
-    public String deleteTagOperation(String id){
+    public void deleteTagOperation(String tag_id){
 //        Tag tag = tagRepository.findById(id).get();
 //        raise exception if does not exist
 //        Query delQuery = Query.query(Criteria.where())
-        List<Snippet> snippets = snippetRepository.findByTagId(id);
+        List<Snippet> snippets = snippetRepository.findByTagId(tag_id);
         for(Snippet snippet : snippets){
-            System.out.println("Deleting tag from: " + snippet.getFilename());
+            // System.out.println("Deleting tag from: " + snippet.getFilename());
             List<String>tag_list = snippet.getTags();
-            tag_list.remove(id);
+            tag_list.remove(tag_id);
             System.out.println(tag_list);
             snippet.setTags(tag_list);
             snippetRepository.save(snippet);
         }
 
-        return "Deleted tag removed from snippets";
+        // return "Deleted tag removed from snippets";
 
     }
 
