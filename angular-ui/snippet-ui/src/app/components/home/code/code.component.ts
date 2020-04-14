@@ -110,6 +110,8 @@ export class CodeComponent implements OnInit {
 
     this.communicationService.gist_id.subscribe(
       (received_id: string) => {
+        // console.log(`Getting Snippet By Id: ${received_id}`);
+        
         if (received_id == null || received_id == '') {
           return;
         }
