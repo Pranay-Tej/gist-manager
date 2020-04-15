@@ -12,15 +12,15 @@ export class TagService {
 
   
   getUserTags(username:string): Observable<Tag[]>{
-    return this.http.get<Tag[]>(environment.gistService + '/tags/user/' + username);
+    return this.http.get<Tag[]>(environment.gistService + '/tags/all/' + username);
   }
   
   newTag(username:string, name:string): Observable<Tag>{
     return this.http.post<Tag>(environment.gistService + '/tags/' + username + '/' + name, {});
   }
   
-  deleteTag(id: string): Observable<boolean> {
-    return this.http.delete<boolean>(environment.gistService + '/tags/' + id);
+  deleteTag(id: string): Observable<Tag> {
+    return this.http.delete<Tag>(environment.gistService + '/tags/' + id);
   }
 
   getTagById(id: string): Observable<Tag>{
@@ -32,13 +32,13 @@ export class TagService {
     return this.http.put<boolean>(environment.gistService + '/snippets/updateTags/' + id, updated_tags);
   }
 
-  addTagsToSnippet(id: string, additions: string[]){
-    return this.http.put(environment.gistService + '/snippets/addTags/' + id, additions);
-  }
+  // addTagsToSnippet(id: string, additions: string[]){
+  //   return this.http.put(environment.gistService + '/snippets/addTags/' + id, additions);
+  // }
 
-  removeTagsFromSnipept(id: string, removals: string[]){
-    return this.http.put(environment.gistService + '/snippets/removeTags/' + id, removals);
-  }
+  // removeTagsFromSnipept(id: string, removals: string[]){
+  //   return this.http.put(environment.gistService + '/snippets/removeTags/' + id, removals);
+  // }
 
   constructor(private http:HttpClient) { }
 }

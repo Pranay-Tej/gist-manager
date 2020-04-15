@@ -6,6 +6,17 @@
     background-color: black;
 }
 
+
+.empty-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    color: white;
+    height: 100%;
+    width: 100%;
+}
+
 .code-toolbar{
     display: flex;
     justify-content: space-between;
@@ -27,6 +38,7 @@
     margin: 0px;
     padding-left: 10px;
     border-radius: 0px;
+    color: white;
 }
 
 .button {

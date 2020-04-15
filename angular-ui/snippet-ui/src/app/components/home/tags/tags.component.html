@@ -40,7 +40,7 @@
     </div> -->
   </div>
   <div class="tag-list">
-    <div class="tag-list-item" *ngFor="let tag of tag_list; trackBy:trackTag" (click)=getTagSnippets(tag.id)>
+    <div class="tag-list-item" *ngFor="let tag of tag_list; trackBy:trackTag; let i = index" (click)=getTagSnippets(tag.id)>
       <div class="tag-item-section">
         {{ tag.name }}
       </div>
@@ -48,7 +48,7 @@
         <button (click)="downloadTag(tag)" class="button">
           <i class="fas fa-arrow-circle-down"></i>
         </button>
-        <button (click)="deleteTag(tag.id)" class="button">
+        <button (click)="deleteTag(tag.id,i)" class="button">
           <i class="fas fa-trash"></i>
         </button>
       </div>

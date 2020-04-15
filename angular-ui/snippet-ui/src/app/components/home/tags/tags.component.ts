@@ -46,7 +46,7 @@ export class TagsComponent implements OnInit {
   }
 
   getUserTags() {
-    console.log('getting user tags')
+    // console.log('getting user tags')
     this.tagService.getUserTags(this.username).subscribe(
       (rec_tag_list) => {
         this.tag_list = rec_tag_list;
@@ -107,14 +107,14 @@ export class TagsComponent implements OnInit {
     this.modalService.sendOutput(reset_output);
   }
 
-  deleteTag(id: string) {
+  deleteTag(id: string, i: number) {
     let delete_tag = confirm('Delete Tag?');
     if (delete_tag) {
       this.tagService.deleteTag(id).subscribe(
         (response) => {
-          if (response == true) {
-            let index = this.tag_list.findIndex(tag => tag.id == id);
-            this.tag_list.splice(index, 1);
+          if (response) {
+            // let index = this.tag_list.findIndex(tag => tag.id == id);
+            this.tag_list.splice(i, 1);
 
           }
           // console.log(response);

@@ -49,7 +49,7 @@ export class EditTagsComponentComponent implements OnInit, OnDestroy {
   }
 
   public final(){
-    console.log('final..' + Array.from(this.tag_id_set.values()));
+    // console.log('final..' + Array.from(this.tag_id_set.values()));
     let final = Array.from(this.tag_id_set.values());
     let output = {
       final_tags : final,
@@ -63,7 +63,7 @@ export class EditTagsComponentComponent implements OnInit, OnDestroy {
   getInput() {
     this.modalService.input.subscribe(
       input => {
-        console.log(input);
+        // console.log(input);
         this.tag_id_list = input.tags;
         this.tag_id_set = new Set<string>(this.tag_id_list);
       }

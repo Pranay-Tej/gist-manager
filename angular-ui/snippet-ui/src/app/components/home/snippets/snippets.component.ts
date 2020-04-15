@@ -37,7 +37,7 @@ export class SnippetsComponent implements OnInit {
   loadTagSnippets(){
     this.communicationService.tag_id.subscribe(
       (rec_tag_id) => {
-        if(rec_tag_id == null){
+        if(rec_tag_id == null || rec_tag_id == ''){
           this.getAllSnippets();
         }else{
           this.gistService.getTagSnippets(rec_tag_id).subscribe(

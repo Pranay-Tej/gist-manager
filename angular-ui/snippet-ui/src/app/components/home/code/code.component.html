@@ -1,33 +1,55 @@
 <div class="code-main-container">
-  <div class="code-toolbar">
-    <div class="code-toolbar-section">
-      <div *ngIf="snippet" class="code-toolbar-item">
-        {{ snippet.filename }}
-      </div>
-    </div>
-    <div class="code-toolbar-section">
-      <div *ngIf="snippet" class="code-toolbar-item edit-tags" (click)="openEditTagsModal()" class="button">
-        Tags <i class="fas fa-edit"></i>
-      </div>
-      <div *ngIf="snippet" class="code-toolbar-item download" (click)="downloadGist(snippet.id)" class="button">
-        <i class="fas fa-arrow-circle-down"></i>
-      </div>
-    </div>
-    
-  </div>
-  
-  <div class="code">
-    <!-- google prettify -->
-    <!-- {{ snippet.code }} -->
-    <pre class="prettyprint code-pre">
-      {{ snippet.code }}
-    </pre>
+  <ng-template
+    *ngIf="snippet == null; then emptyBlock; else codeBlock"
+  ></ng-template>
 
-    <!-- highlight.js -->
-    <!-- <pre>
+  <ng-template #emptyBlock>
+    <div class="empty-block">
+      <div>&larr; Please select a Snippet to view Code</div>
+    </div>
+  </ng-template>
+
+  <ng-template #codeBlock>
+    <div class="code-toolbar">
+      <div class="code-toolbar-section">
+        <div *ngIf="snippet" class="code-toolbar-item">
+          {{ snippet.filename }}
+        </div>
+      </div>
+      <div class="code-toolbar-section">
+        <div
+          *ngIf="snippet"
+          class="code-toolbar-item edit-tags"
+          (click)="openEditTagsModal()"
+          class="button"
+        >
+          Tags <i class="fas fa-edit"></i>
+        </div>
+        <div
+          *ngIf="snippet"
+          class="code-toolbar-item download"
+          (click)="downloadGist(snippet.id)"
+          class="button"
+        >
+          <i class="fas fa-arrow-circle-down"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="code">
+      <!-- google prettify -->
+      <!-- {{ snippet.code }} -->
+      <pre class="prettyprint code-pre">
+      {{ snippet.code }}
+    </pre
+      >
+
+      <!-- highlight.js -->
+      <!-- <pre>
       <code>
         {{ snippet.code }}
       </code>
     </pre> -->
-  </div>
+    </div>
+  </ng-template>
 </div>
