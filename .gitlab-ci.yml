@@ -10,7 +10,7 @@ before_script:
   - apt-get install -qy curl
   - curl https://cli-assets.heroku.com/install.sh | sh
   - echo -e "machine git.heroku.com\n  login $EMAIL_ID\n  password $HEROKU_API_KEY" >> ~/.netrc
-  - cat ~/.netrc
+#   - cat ~/.netrc
 
 stages:
 #   - test
