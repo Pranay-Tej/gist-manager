@@ -1,0 +1,63 @@
+.library {
+    background-color: aliceblue;
+    border: 1px solid black;
+    display: grid;
+    flex-direction: column;
+}
+
+/* layout */
+.library {
+    display: grid;
+    grid-template-areas: "sm c c";
+    grid-template-columns: 1fr 1fr repeat(1, 1fr);
+    grid-template-rows: 1fr;
+    height: calc(100% - var(--nav-bar-height));
+}
+
+
+/* Responsiveness */
+/* Mobile */
+@media screen and (max-width: 1000px) {
+    .library {
+        display: grid;
+        grid-template-areas: "c";
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+    }
+
+    /* .side-menu {
+
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: -100%;
+        transition: all 130ms ease-out;
+    }
+    .active {
+        left: 0;
+        width: 100%;
+    } */
+}
+
+/* Desktop */
+/* @media screen and (min-width: 1000px){
+    .close-side-menu{
+        display: none;
+    } */
+
+    /* .side-menu { */
+        /* Layout */
+        /* grid-template-columns: repeat(2, 1fr); */
+        /* grid-template-rows:1fr; */
+        /* grid-template-areas: */
+            /* "cb cb"  */
+            /* "t s"; */
+    
+        /* Hide */
+        /* position: fixed;
+        z-index: 1;
+        top: 0;
+        left: -100%;
+        transition: left 130ms ease-out; */
+    /* }
+} */

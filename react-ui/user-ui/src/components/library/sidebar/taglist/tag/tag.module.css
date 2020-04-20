@@ -1,0 +1,7 @@
+.tag{
+    border-bottom: 1px solid var(--secondary-color);
+    color: white;
+    padding: 1em 0.8em;
+    height: var(--nav-bar-height);
+    text-overflow: ellipsis;
+}

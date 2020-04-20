@@ -1,0 +1,24 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+}
+
+.navbar-item{
+    background-color: var(--primary-color);
+    border: 0px;
+    border-bottom: 2px solid var(--secondary-color);
+    color: var(--secondary-color);
+    font-size: 2rem;
+    height: var(--nav-bar-height);
+    margin: 0 2px;
+    padding: 0.3em;
+
+}
+
+/* Desktop */
+@media screen and (min-width: 1000px){
+    .open-sidebar{
+        display: none;
+    }
+}

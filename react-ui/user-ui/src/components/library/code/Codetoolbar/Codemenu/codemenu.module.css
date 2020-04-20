@@ -1,0 +1,21 @@
+.code-menu{
+
+    grid-area: cm;
+
+    width: 100%;
+    display: flex;
+
+    /* display: flex; */
+}
+.code-menu-item{
+    display: inline-block;
+    font-size: 2rem;
+    flex: 1;
+}
+
+@media screen and (min-width: 1000px){
+    .code-menu-item{
+        width: 4em;
+    }
+    
+}

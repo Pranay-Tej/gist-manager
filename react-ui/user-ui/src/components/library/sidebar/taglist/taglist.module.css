@@ -1,0 +1,11 @@
+.taglist{
+    background-color: black;
+    color: white;
+    /* overflow-x: hidden; */
+    /* overflow-y: auto; */
+    border-right: 1px solid var(--secondary-color);
+}
+
+.taglist{
+    grid-area: t;
+}

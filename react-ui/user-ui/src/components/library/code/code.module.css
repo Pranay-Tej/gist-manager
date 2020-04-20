@@ -1,0 +1,19 @@
+.code{
+    background-color: var(--primary-color);
+    grid-area: c;
+
+    overflow-y: auto;
+
+    padding: 0 0.5em;
+    position: relative;
+}
+.code-syntax-highlight{
+    white-space: pre;
+}
+
+.emptyBlock{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
