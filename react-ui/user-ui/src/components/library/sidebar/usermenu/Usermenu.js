@@ -14,6 +14,9 @@ function Usermenu() {
     const createNewTag = () => {
         const username = "Pranay-Tej"
         const new_tag_name = window.prompt("New Tag name: ")
+        if(new_tag_name === null || new_tag_name===''){
+            return
+        }
         tagService.createNewTag(username, new_tag_name)
         .then( data => console.log(data))
     }

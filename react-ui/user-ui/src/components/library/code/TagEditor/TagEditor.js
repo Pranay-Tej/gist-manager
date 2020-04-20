@@ -9,7 +9,7 @@ function TagEditor(props) {
     const { snippet } = props;
     const [all_user_tags, setAll_user_tags] = useState([]);
 
-    const [snippet_tags, setSnippet_tags] = useState(new Set(snippet.tags));
+    const [snippet_tags, setSnippet_tags] = useState();
 
     // console.log(snippet_tags);
 
@@ -54,13 +54,15 @@ function TagEditor(props) {
     useEffect(() => {
         const username = "Pranay-Tej";
         // subscribing
-        Emitter.on("editTags", () => {
-            openTagEditor();
-        });
-
         tagService.getUserTags(username).then((data) => {
             setAll_user_tags(data);
         });
+
+        Emitter.on("editTags", () => {
+            openTagEditor();
+
+        });
+
 
         return () => {
             // unsubscribing on unmount
@@ -68,7 +70,11 @@ function TagEditor(props) {
         };
     }, []);
 
-    const tag_checklist = all_user_tags.map((tag) => 
+    useEffect(() => {
+        setSnippet_tags(new Set(snippet.tags))
+    }, [snippet])
+
+    const tag_checklist = all_user_tags.map((tag) => (
         <TagCheckbox
             key={tag.id}
             tag={tag}
@@ -76,7 +82,7 @@ function TagEditor(props) {
             addToTagSet={addToTagSet}
             removeFromTagSet={removeFromTagSet}
         />
-    );
+    ));
 
     return (
         <div id="tagEditor" className={styles["tag-editor"]}>
@@ -89,7 +95,7 @@ function TagEditor(props) {
                     Create Tags using New-Tag option in the left side menu
                 </div>
             )}
-            <div className={`${styles["tag-editor-action-item"]}`}>
+            <div className={`${styles["tag-editor-actions"]}`}>
                 <button
                     className={`${styles["tag-editor-action-item"]}`}
                     onClick={() => submitTagListUpdate()}

@@ -1,28 +1,37 @@
-.tag-editor{
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
+.tag-editor {
+    height: 0;
+    width:0;
+    position: fixed;
+    top: -100%;
     right: -100%;
+    display: none;
+    overflow-y: auto;
 
+    z-index: 1;
     background-color: var(--primary-color);
     display: flex;
+    flex-shrink: 1;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    transition: right 130ms ease-out;
+    transition: all 130ms ease-out;
 }
 
-.tag-checklist{
+.tag-checklist {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 }
 
-.active{
-    right: 0;
-}
-.tag-editor-action-item{
+
+.tag-editor-action-item {
     font-size: 2em;
     padding: 0.3em;
+}
+.active {
+    /* display: flex; */
+    height: 100%;
+    width: 100%;
+    top:0;
+    right: 0;
 }

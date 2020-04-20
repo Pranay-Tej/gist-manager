@@ -1,6 +1,11 @@
 /* Mobile */
 
 .code-toolbar {
+    /* grid-area: ct; */
+
+    /* overflow-y: auto; */
+
+
     background-color: var(--secondary-color);
     color: var(--secondary-font-color);
     display: grid;
@@ -9,6 +14,7 @@
     grid-template-areas:
         "ci"
         "cm";
+
 }
 
 .code-info-item {

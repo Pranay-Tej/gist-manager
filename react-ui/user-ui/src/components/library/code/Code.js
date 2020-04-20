@@ -11,10 +11,6 @@ import TagEditor from "./TagEditor/TagEditor";
 function Code() {
     const [snippet, setSnippet] = useState(null);
 
-    const showCode = (code) => {
-        setSnippet(code);
-    };
-
     useEffect(() => {
         Emitter.on("snippetToCode", (snippet) => {
             setSnippet(snippet);
@@ -37,10 +33,12 @@ function Code() {
                     >
                         {snippet.code}
                     </SyntaxHighlighter>
-                    <TagEditor snippet={snippet}/>
+                    <TagEditor snippet={snippet} />
                 </>
             ) : (
-                <div className={styles["emptyBlock"]}>&larr; Select a snippet to view its code</div>
+                <div className={styles["emptyBlock"]}>
+                    &larr; Select a snippet to view its code
+                </div>
             )}
         </div>
     );
