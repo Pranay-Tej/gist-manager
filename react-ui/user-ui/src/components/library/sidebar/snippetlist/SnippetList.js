@@ -18,14 +18,14 @@ function SnippetList() {
     };
 
     const getAllSnippets = () => {
-        let username = "Pranay-Tej";
+        const username = "Pranay-Tej";
         snippetService
             .getUserSnippets(username)
             .then((data) => setSnippets(data));
     };
 
     useEffect(() => {
-        // let username = "Pranay-Tej";
+        // const username = "Pranay-Tej";
         // snippetService
         //     .getUserSnippets(username)
         //     .then((data) => setSnippets(data));

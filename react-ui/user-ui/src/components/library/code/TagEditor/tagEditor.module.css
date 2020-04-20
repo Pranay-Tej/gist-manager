@@ -20,7 +20,7 @@
 .tag-checklist {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    margin-top: 4em;
 }
 
 

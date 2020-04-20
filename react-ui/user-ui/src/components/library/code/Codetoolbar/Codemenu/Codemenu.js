@@ -8,9 +8,12 @@ function Codemenu(props) {
     const { snippet } = props;
 
     const downloadSnippet = () => {
+
+        const API = `localhost:8080/gist-service`
+
         const link = document.createElement('a');
         link.setAttribute('target', '_blank');
-        link.setAttribute('href', `localhost:8080/gist-service/download/${snippet.id}`);
+        link.setAttribute('href', `${API}/download/${snippet.id}`);
         link.setAttribute('download', snippet.filename);
         document.body.appendChild(link);
         link.click();

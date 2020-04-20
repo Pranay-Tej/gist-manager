@@ -2,18 +2,50 @@ import React from 'react'
 
 import styles from "./tag.module.css";
 import Emitter from '../../../../../services/emitter';
+import tagService from '../../../../../services/tagService';
 
 
 function Tag(props) {
     const {tag} = props
 
-    const sendTag = (tagId) => {
-        Emitter.emit("TagId", tagId)
+    const sendTag = () => {
+        Emitter.emit("TagId", tag.id)
+    }
+
+    const deleteTag = () => {
+        const delete_confirmation = window.confirm(`Delete Tag: ${tag.name}?`)
+        if(delete_confirmation){
+            tagService.deleteTag(tag.id)
+            .then(data => {
+                console.log(data)
+            })
+        }
+    }
+
+    const downloadTag = () => {
+
+        const API = `localhost:8080/gist-service`
+
+        const link = document.createElement('a');
+        link.setAttribute('target', '_blank');
+        link.setAttribute('href', `${API}/download/tag/${tag.id}`);
+        link.setAttribute('download', tag.name);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
     }
 
     return (
-        <div className={styles['tag']} onClick={() => sendTag(tag.id)}>
-            {tag.name}
+        <div className={styles['tag']}>
+            <div className={styles['tag-name']} onClick={() => sendTag()}>
+                {tag.name}
+            </div>
+            <button className={styles['download-tag']} onClick={() => downloadTag()}>
+                D
+            </button>
+            <button className={styles['delete-tag']} onClick={() => deleteTag()}>
+                X
+            </button>
         </div>
     )
 }

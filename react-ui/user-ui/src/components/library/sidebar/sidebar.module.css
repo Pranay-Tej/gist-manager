@@ -17,7 +17,7 @@
     height: 100%;
     width: 100%;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: var(--nav-bar-height) calc(var(--nav-bar-height) * 3) 1fr;
+    grid-template-rows: var(--nav-bar-height) calc(3em * 3) 1fr;
     grid-template-areas:
         "cb cb"
         "um s"
@@ -66,7 +66,7 @@
         /* Layout */
         /* grid-template-columns: repeat(2, 1fr); */
         grid-template-rows:
-            calc(var(--nav-bar-height) * 4)
+            calc(3em * 3)
             1fr;
         grid-template-areas:
             /* "cb cb" */

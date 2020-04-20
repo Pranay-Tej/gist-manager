@@ -10,7 +10,7 @@ function TagList() {
 
     const taglist = tags.map((tag) => <Tag key={tag.id} tag={tag} />);
     useEffect(() => {
-        let username = "Pranay-Tej";
+        const username = "Pranay-Tej";
         tagService.getUserTags(username).then((data) => setTags(data));
         // return () => {
         //     cleanup

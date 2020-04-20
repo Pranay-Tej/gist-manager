@@ -20,7 +20,12 @@ const tagService = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({})
         }).then((response) => response);
-        // return this.http.post<Tag>(environment.gistService + '/tags/' + username + '/' + name, {});
+      },
+      deleteTag(id){
+        return fetch(`${API}/tags/${id}`, {
+            method: "DELETE"
+        }).then((response) => response);
+        // return this.http.delete<Tag>(environment.gistService + '/tags/' + id);
       }
 };
 
