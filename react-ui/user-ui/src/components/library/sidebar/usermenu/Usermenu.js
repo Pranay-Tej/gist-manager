@@ -3,6 +3,7 @@ import styles from "./usermenu.module.css";
 import Emitter from "../../../../services/emitter";
 import tagService from "../../../../services/tagService";
 import snippetService from "../../../../services/snippetService";
+import userService from "../../../../services/userService";
 
 function Usermenu() {
     const viewAll = () => {
@@ -10,7 +11,11 @@ function Usermenu() {
     };
 
     const createNewTag = () => {
-        const username = "Pranay-Tej";
+        let username = userService.getUsername();
+        if (username === null || username === "") {
+            userService.setUsername()
+            username = userService.getUsername();
+        }
         const new_tag_name = window.prompt("New Tag name: ");
         if (new_tag_name === null || new_tag_name === "") {
             return;
@@ -22,7 +27,11 @@ function Usermenu() {
 
     const downloadAllSnippets = () => {
         const API = `localhost:8080/gist-service`;
-        const username = "Pranay-Tej";
+        let username = userService.getUsername();
+        if (username === null || username === "") {
+            userService.setUsername()
+            username = userService.getUsername();
+        }
         const link = document.createElement("a");
         link.setAttribute("target", "_blank");
         link.setAttribute("href", `${API}/download/all/${username}`);

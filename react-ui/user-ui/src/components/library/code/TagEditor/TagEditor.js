@@ -4,6 +4,7 @@ import styles from "./tagEditor.module.css";
 import Emitter from "../../../../services/emitter";
 import tagService from "../../../../services/tagService";
 import TagCheckbox from "./TagCheckbox/TagCheckbox";
+import userService from "../../../../services/userService";
 
 function TagEditor(props) {
     const { snippet } = props;
@@ -22,7 +23,15 @@ function TagEditor(props) {
         const tagEditor = document.getElementById("tagEditor");
         tagEditor.classList.remove(styles["active"]);
     };
-
+    const getAllUserTags = () => {
+        const username = userService.getUsername();
+        if (username === null || username === "") {
+            // userService.setUsername()
+        }
+        tagService.getUserTags(username).then((data) => {
+            setAll_user_tags(data);
+        });
+    }
     const cancel = () => {
         closeTagEditor();
         const default_tags_set = new Set(snippet.tags);
@@ -51,22 +60,27 @@ function TagEditor(props) {
             });
     };
 
+
     useEffect(() => {
-        const username = "Pranay-Tej";
+        
+        getAllUserTags()
+        
         // subscribing
-        tagService.getUserTags(username).then((data) => {
-            setAll_user_tags(data);
-        });
 
         Emitter.on("editTags", () => {
             openTagEditor();
 
         });
 
+        Emitter.on("usernameUpdate", () => {
+            getAllUserTags();
+        });
 
         return () => {
             // unsubscribing on unmount
             Emitter.off("editTags");
+            Emitter.off("usernameUpdate");
+
         };
     }, []);
 

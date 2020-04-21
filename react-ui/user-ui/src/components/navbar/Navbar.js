@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./navbar.module.css";
 import Emitter from "../../services/emitter";
+import userService from "../../services/userService";
 
 
 
@@ -8,6 +9,10 @@ function Navbar() {
 
     const openSidebar = () => {
         Emitter.emit("openSidebar")
+    }
+
+    const setUsername = () => {
+        userService.setUsername()
     }
 
 
@@ -24,7 +29,7 @@ function Navbar() {
                 </button>
             </div>
             <div className={styles['navbar-section']}>
-                <button className={styles['navbar-item']}>
+                <button className={styles['navbar-item']} onClick={() => setUsername()}>
                     {/* <i className="fab fa-gitlab fa-lg"></i> */}
                     <ion-icon name="person"></ion-icon>
                 </button>

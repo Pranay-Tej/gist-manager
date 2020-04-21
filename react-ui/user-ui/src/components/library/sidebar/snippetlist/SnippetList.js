@@ -5,6 +5,7 @@ import styles from "./snippetlist.module.css";
 import snippetService from "../../../../services/snippetService";
 import Snippet from "./snippet/Snippet";
 import Emitter from "../../../../services/emitter";
+import userService from "../../../../services/userService";
 
 function SnippetList() {
     const [snippets, setSnippets] = useState([]);
@@ -18,18 +19,17 @@ function SnippetList() {
     };
 
     const getAllSnippets = () => {
-        const username = "Pranay-Tej";
+        let username = userService.getUsername();
+        if (username === null || username === "") {
+            userService.setUsername();
+            username = userService.getUsername();
+        }
         snippetService
             .getUserSnippets(username)
             .then((data) => setSnippets(data));
     };
 
     useEffect(() => {
-        // const username = "Pranay-Tej";
-        // snippetService
-        //     .getUserSnippets(username)
-        //     .then((data) => setSnippets(data));
-
         Emitter.on("TagId", (tagId) => {
             getSnippets(tagId);
         });
@@ -40,6 +40,7 @@ function SnippetList() {
 
         return () => {
             Emitter.off("TagId");
+            Emitter.off("ViewAll");
         };
     }, []);
 
