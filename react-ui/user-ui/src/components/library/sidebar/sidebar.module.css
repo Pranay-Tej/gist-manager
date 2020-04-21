@@ -37,6 +37,7 @@
     grid-area: cb;
     width: 100%;
     color: var(--primary-font-color);
+    font-size: 2rem;
 }
 
 /* Responsiveness */

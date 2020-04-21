@@ -15,7 +15,7 @@ function TagList() {
         // return () => {
         //     cleanup
         // }
-    }, [tags]);
+    }, []);
 
     // return <div className={styles["taglist"]}>{tags.map((tag) => <Tag key={tag.id} tag={tag} />)}</div>;
     return <div className={styles["taglist"]}>{taglist}</div>;

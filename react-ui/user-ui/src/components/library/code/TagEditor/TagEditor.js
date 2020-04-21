@@ -100,13 +100,13 @@ function TagEditor(props) {
                     className={`${styles["tag-editor-action-item"]}`}
                     onClick={() => submitTagListUpdate()}
                 >
-                    Y
+                    <ion-icon name="checkmark-circle"></ion-icon>
                 </button>
                 <button
                     className={`${styles["tag-editor-action-item"]}`}
                     onClick={() => cancel()}
                 >
-                    N
+                    <ion-icon name="close-circle"></ion-icon>
                 </button>
             </div>
         </div>

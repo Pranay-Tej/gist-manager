@@ -5,7 +5,6 @@ import SnippetList from "./snippetlist/SnippetList";
 import Emitter from "../../../services/emitter";
 import Usermenu from "./usermenu/Usermenu";
 
-
 function Sidebar() {
     const closeSideBar = () => {
         let sideBar = document.getElementById("sideBar");
@@ -37,8 +36,11 @@ function Sidebar() {
 
     return (
         <div id={"sideBar"} className={`${styles["sidebar"]} `}>
-            <div className={styles["close-sidebar"]} onClick={() => closeSideBar()}>
-                X
+            <div
+                className={styles["close-sidebar"]}
+                onClick={() => closeSideBar()}
+            >
+                <ion-icon name="close-circle"></ion-icon>
             </div>
             <Usermenu />
             <TagList />

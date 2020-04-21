@@ -16,21 +16,21 @@ function Navbar() {
             <div className={styles['navbar-section']}>
                 <button className={`${styles['navbar-item']} ${styles['open-sidebar']}` } id={"openSidebar"} onClick={() => openSidebar()}>
                     {/* <i className="fab fa-gitlab fa-lg"></i> */}
-                    M
+                    <ion-icon name="menu"></ion-icon>
                 </button>
                 <button className={styles['navbar-item']}>
                     {/* <i className="fab fa-gitlab fa-lg"></i> */}
-                    H
+                    <ion-icon name="home"></ion-icon>
                 </button>
             </div>
             <div className={styles['navbar-section']}>
                 <button className={styles['navbar-item']}>
                     {/* <i className="fab fa-gitlab fa-lg"></i> */}
-                    U
+                    <ion-icon name="person"></ion-icon>
                 </button>
                 <button className={styles['navbar-item']}>
                     {/* <i className="fab fa-gitlab fa-lg"></i> */}
-                    G
+                    <ion-icon name="logo-github"></ion-icon>
                 </button>
             </div>
         </div>

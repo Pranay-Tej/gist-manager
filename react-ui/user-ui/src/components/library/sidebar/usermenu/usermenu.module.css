@@ -30,4 +30,6 @@
 .download-all{
     flex: 1;
     height: 100%;
+    font-size: 2rem;
+    background-color: var(--secondary-color);
 }
