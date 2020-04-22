@@ -3,7 +3,8 @@ import React from "react";
 import styles from "./codemenu.module.css";
 import snippetService from "../../../../../services/snippetService";
 import Emitter from "../../../../../services/emitter";
-import config from "../../../../../config";
+import config from "../../../../../services/config";
+
 
 function Codemenu(props) {
     const { snippet } = props;

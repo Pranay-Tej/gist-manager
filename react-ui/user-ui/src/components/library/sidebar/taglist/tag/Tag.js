@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./tag.module.css";
 import Emitter from "../../../../../services/emitter";
 import tagService from "../../../../../services/tagService";
-import config from "../../../../../config";
+import config from "../../../../../services/config";
 
 function Tag(props) {
     const { tag, refreshTagList } = props;

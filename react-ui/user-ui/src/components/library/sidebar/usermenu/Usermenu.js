@@ -4,7 +4,7 @@ import Emitter from "../../../../services/emitter";
 import tagService from "../../../../services/tagService";
 import snippetService from "../../../../services/snippetService";
 import userService from "../../../../services/userService";
-import config from "../../../../config";
+import config from "../../../../services/config";
 
 function Usermenu() {
     const viewAll = () => {
