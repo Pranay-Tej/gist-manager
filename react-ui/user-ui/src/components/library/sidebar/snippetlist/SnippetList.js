@@ -30,17 +30,17 @@ function SnippetList() {
     };
 
     useEffect(() => {
-        Emitter.on("TagId", (tagId) => {
+        Emitter.on("tagId", (tagId) => {
             getSnippets(tagId);
         });
 
-        Emitter.on("ViewAll", () => {
+        Emitter.on("viewAll", () => {
             getAllSnippets();
         });
 
         return () => {
-            Emitter.off("TagId");
-            Emitter.off("ViewAll");
+            Emitter.off("tagId");
+            Emitter.off("viewAll");
         };
     }, []);
 
