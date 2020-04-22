@@ -8,7 +8,7 @@ import config from "../../../../services/config";
 
 function Usermenu() {
     const viewAll = () => {
-        Emitter.emit("ViewAll");
+        Emitter.emit("viewAll");
     };
 
     const createNewTag = () => {
@@ -43,10 +43,7 @@ function Usermenu() {
     };
     return (
         <div className={styles["usermenu"]}>
-            <div
-                className={styles["usermenu-item"]}
-                onClick={() => viewAll()}
-            >
+            <div className={styles["usermenu-item"]} onClick={() => viewAll()}>
                 <div className={styles["usermenu-item-name"]}>
                     Update Library
                 </div>

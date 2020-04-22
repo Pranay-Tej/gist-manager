@@ -9,7 +9,7 @@ function Tag(props) {
     const { tag, refreshTagList } = props;
 
     const sendTag = () => {
-        Emitter.emit("TagId", tag.id);
+        Emitter.emit("tagId", tag.id);
     };
 
     const deleteTag = () => {
@@ -17,7 +17,7 @@ function Tag(props) {
         if (delete_confirmation) {
             tagService.deleteTag(tag.id).then((data) => {
                 // console.log(data);
-                Emitter.emit("refreshTagList")
+                Emitter.emit("refreshTagList");
             });
         }
     };
