@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./tag.module.css";
 import Emitter from "../../../../../services/emitter";
 import tagService from "../../../../../services/tagService";
+import config from "../../../../../config";
 
 function Tag(props) {
     const { tag, refreshTagList } = props;
@@ -22,7 +23,7 @@ function Tag(props) {
     };
 
     const downloadTag = () => {
-        const API = `localhost:8080/gist-service`;
+        const API = config.API();
 
         const link = document.createElement("a");
         link.setAttribute("target", "_blank");

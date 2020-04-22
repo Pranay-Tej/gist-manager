@@ -3,12 +3,13 @@ import React from "react";
 import styles from "./codemenu.module.css";
 import snippetService from "../../../../../services/snippetService";
 import Emitter from "../../../../../services/emitter";
+import config from "../../../../../config";
 
 function Codemenu(props) {
     const { snippet } = props;
 
     const downloadSnippet = () => {
-        const API = `localhost:8080/gist-service`;
+        const API = config.API();
 
         const link = document.createElement("a");
         link.setAttribute("target", "_blank");

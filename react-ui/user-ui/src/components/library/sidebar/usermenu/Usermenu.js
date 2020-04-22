@@ -4,6 +4,7 @@ import Emitter from "../../../../services/emitter";
 import tagService from "../../../../services/tagService";
 import snippetService from "../../../../services/snippetService";
 import userService from "../../../../services/userService";
+import config from "../../../../config";
 
 function Usermenu() {
     const viewAll = () => {
@@ -26,7 +27,7 @@ function Usermenu() {
     };
 
     const downloadAllSnippets = () => {
-        const API = `localhost:8080/gist-service`;
+        const API = config.API();
         let username = userService.getUsername();
         if (username === null || username === "") {
             userService.setUsername();

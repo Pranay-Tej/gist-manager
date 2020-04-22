@@ -1,4 +1,6 @@
-const API = "http://127.0.0.1:8080/gist-service";
+import config from "../config";
+
+const API = config.API();
 
 const snippetService = {
     getUserSnippets: (username) => {
