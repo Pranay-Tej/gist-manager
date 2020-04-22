@@ -99,7 +99,7 @@ heroku_deploy-react-ui:
     - git subtree split --prefix=react-ui/user-ui/ -b react-ui-only
     - git push -f heroku-react-ui react-ui-only:master
   only:
-    - master
+    - dev
     
   
   
