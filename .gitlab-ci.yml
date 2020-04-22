@@ -17,6 +17,7 @@ stages:
 #   - package
   - deploy-backend
   - deploy-frontend
+  - deploy-react-ui
 
   # api-deploy:
   #   stage: deploy
@@ -87,6 +88,18 @@ heroku_deploy-frontend:
     - git push -f heroku-frontend frontend-only:master
   only:
     - master
+
+  heroku_deploy-react-ui:
+    stage: deploy-react-ui
+    script:
+      - heroku git:remote --app $HEROKU_APP_REACT_UI
+      - git remote rename heroku heroku-react-ui
+      - heroku stack:set heroku-18 --app $HEROKU_APP_REACT_UI
+      # - git remote add heroku-frontend https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_FRONTEND.git
+      - git subtree split --prefix=react-ui/user-ui/ -b react-ui-only
+      - git push -f heroku-react-ui react-ui-only:master
+    only:
+      - master
     
   
   
