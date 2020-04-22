@@ -34,20 +34,21 @@ function Tag(props) {
 
     return (
         <div className={styles["tag"]}>
-            <div className={styles["tag-name"]} onClick={() => sendTag()}>
-                {tag.name}
+            <div className={styles["tag-content"]} onClick={() => sendTag()}>
+                <ion-icon name="pricetags"></ion-icon>
+                <div className={styles["tag-name"]}>{tag.name}</div>
             </div>
             <button
-                className={styles["download-tag"]}
+                className={`${styles["download-tag"]}`}
                 onClick={() => downloadTag()}
             >
                 <ion-icon name="arrow-down-circle"></ion-icon>
             </button>
             <button
-                className={styles["delete-tag"]}
+                className={`${styles["delete-tag"]}`}
                 onClick={() => deleteTag()}
             >
-                <ion-icon name="trash-bin"></ion-icon>
+                <ion-icon name="trash"></ion-icon>
             </button>
         </div>
     );

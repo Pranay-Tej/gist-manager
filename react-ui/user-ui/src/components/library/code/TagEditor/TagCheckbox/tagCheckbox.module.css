@@ -6,7 +6,22 @@
 .tag-name{
     font-size: 1.3rem;
     padding: 0 0 1em 0.5em;
+
+    max-width: 30em;
+
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
+/* Mobile */
+@media screen and (max-width: 1000px) {
+    .tag-name{
+      font-size: 0.9rem;
+      max-width: 15em;
+
+    }
+  }
 
 /* https://appitventures.com/blog/styling-checkbox-css-tips/ */
 

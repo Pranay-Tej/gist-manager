@@ -13,7 +13,7 @@ function Usermenu() {
     const createNewTag = () => {
         let username = userService.getUsername();
         if (username === null || username === "") {
-            userService.setUsername()
+            userService.setUsername();
             username = userService.getUsername();
         }
         const new_tag_name = window.prompt("New Tag name: ");
@@ -29,7 +29,7 @@ function Usermenu() {
         const API = `localhost:8080/gist-service`;
         let username = userService.getUsername();
         if (username === null || username === "") {
-            userService.setUsername()
+            userService.setUsername();
             username = userService.getUsername();
         }
         const link = document.createElement("a");
@@ -42,19 +42,29 @@ function Usermenu() {
     };
     return (
         <div className={styles["usermenu"]}>
-            <button
+            <div
                 className={styles["usermenu-item"]}
                 onClick={() => viewAll()}
             >
-                Update Library
-                <ion-icon size="large" name="refresh-circle"></ion-icon>
-            </button>
+                <div className={styles["usermenu-item-name"]}>
+                    Update Library
+                </div>
+                <ion-icon name="refresh-circle"></ion-icon>
+            </div>
+            <div
+                className={styles["usermenu-item"]}
+                onClick={() => createNewTag()}
+            >
+                <div className={styles["usermenu-item-name"]}>New Tag</div>
+                <ion-icon name="add-circle"></ion-icon>
+            </div>
             <div
                 className={`${styles["usermenu-item"]} ${styles["all"]}`}
                 onClick={() => viewAll()}
             >
                 <div className={styles["view-all"]}>
-                    All <ion-icon name="library"></ion-icon>
+                    <div className={styles["usermenu-item-name"]}>All</div>
+                    <ion-icon name="library"></ion-icon>
                 </div>
                 <button
                     className={styles["download-all"]}
@@ -63,13 +73,6 @@ function Usermenu() {
                     <ion-icon name="arrow-down-circle"></ion-icon>
                 </button>
             </div>
-            <button
-                className={styles["usermenu-item"]}
-                onClick={() => createNewTag()}
-            >
-                New Tag
-                <ion-icon name="add-circle"></ion-icon>
-            </button>
         </div>
     );
 }

@@ -1,9 +1,22 @@
 :root{
   --primary-color: #000000;
+  --primary-color-shade-two: #1c1b1d;
+  --primary-color-shade-three: #222424;
+
   --secondary-color: rgb(32, 173, 56);
+
   --primary-font-color: #ffffff;
   --secondary-font-color: #000000;
+
+  --primary-hover-color: rgb(71, 206, 93);
+
   --nav-bar-height: 3.8rem;
+
+  --primary-button: rgb(17, 90, 124);
+  --success-button: var(--secondary-color);
+  --danger-button: rgb(129, 30, 30);
+
+  --nav-bar-color: #0a242e;
 }
 
 /* base styles */
@@ -25,6 +38,7 @@ button{
   padding: 0;
   outline:none;
   font-size: 1rem;
+  background-color: rgba(0,0,0,0);
 }
 
 code {

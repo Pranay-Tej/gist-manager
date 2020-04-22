@@ -1,11 +1,13 @@
 .close-sidebar {
+
+    grid-area: cb;
+
     display: inline-block;
-    padding: 1em 1em;
-    width: 5em;
     text-align: center;
     cursor: pointer;
-    background-color: rgb(153, 49, 49);
-    font-size: 1.2rem;
+    background-color: var(--danger-button);
+    font-size: 2rem;
+    color: var(--primaryfont-font-color);
 }
 
 .sidebar {
@@ -17,7 +19,7 @@
     height: 100%;
     width: 100%;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: var(--nav-bar-height) calc(3em * 3) 1fr;
+    grid-template-rows: var(--nav-bar-height) calc(4em * 3) 1fr;
     grid-template-areas:
         "cb cb"
         "um s"
@@ -33,12 +35,6 @@
     transition: left 130ms ease-out; */
 }
 
-.close-sidebar {
-    grid-area: cb;
-    width: 100%;
-    color: var(--primary-font-color);
-    font-size: 2rem;
-}
 
 /* Responsiveness */
 /* Mobile */
@@ -67,7 +63,7 @@
         /* Layout */
         /* grid-template-columns: repeat(2, 1fr); */
         grid-template-rows:
-            calc(3em * 3)
+            calc(4em * 3)
             1fr;
         grid-template-areas:
             /* "cb cb" */

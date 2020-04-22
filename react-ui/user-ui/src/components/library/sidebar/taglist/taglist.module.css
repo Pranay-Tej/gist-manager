@@ -1,7 +1,7 @@
 .taglist{
-    background-color: black;
+    background-color: var(--primary-color);
     color: white;
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
     /* overflow-y: auto; */
     border-right: 1px solid var(--secondary-color);
 }

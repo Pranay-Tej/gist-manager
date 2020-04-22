@@ -24,7 +24,6 @@ function Navbar() {
                     <ion-icon name="menu"></ion-icon>
                 </button>
                 <button className={styles['navbar-item']}>
-                    {/* <i className="fab fa-gitlab fa-lg"></i> */}
                     <ion-icon name="home"></ion-icon>
                 </button>
             </div>

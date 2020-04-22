@@ -28,7 +28,10 @@
     font-size: 2em;
     height: 2em;
     width: 4em;
-    margin: 0 0.1em
+    margin: 0 0.1em;
+    color: var(--primary-font-color);
+    border-radius: 5px;
+
 }
 .active {
     /* display: flex; */
@@ -36,4 +39,11 @@
     width: 100%;
     top:0;
     right: 0;
+}
+.submit-button{
+    background-color: var(--success-button);
+}
+
+.cancel-button{
+    background-color: var(--danger-button);
 }

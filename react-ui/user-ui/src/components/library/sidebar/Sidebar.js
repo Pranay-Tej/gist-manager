@@ -36,12 +36,12 @@ function Sidebar() {
 
     return (
         <div id={"sideBar"} className={`${styles["sidebar"]} `}>
-            <div
+            <button
                 className={styles["close-sidebar"]}
                 onClick={() => closeSideBar()}
             >
                 <ion-icon name="close-circle"></ion-icon>
-            </div>
+            </button>
             <Usermenu />
             <TagList />
             <SnippetList />

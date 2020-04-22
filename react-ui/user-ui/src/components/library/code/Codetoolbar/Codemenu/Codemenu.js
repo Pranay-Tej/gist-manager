@@ -26,13 +26,13 @@ function Codemenu(props) {
     return (
         <div className={styles["code-menu"]}>
             <button
-                className={styles["code-menu-item"]}
+                className={`${styles["code-menu-item"]} ${styles["edit-tags"]}`}
                 onClick={() => editTags()}
             >
                 <ion-icon name="create"></ion-icon>
             </button>
             <button
-                className={styles["code-menu-item"]}
+                className={`${styles["code-menu-item"]} ${styles["download-tag"]}`}
                 onClick={() => downloadSnippet()}
             >
                 <ion-icon name="arrow-down-circle"></ion-icon>
