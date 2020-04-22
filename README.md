@@ -1,6 +1,8 @@
 ## Web app to manage GitHub Gists
 
-[Visit App](https://gistmanager.herokuapp.com/ "GistManager")
+[Visit React App](https://gistman.herokuapp.com/ "GistMan")
+
+[Visit Angular App](https://gistmanager.herokuapp.com/ "GistManager")
 
 [View Project Status](https://app.gitkraken.com/glo/board/XlPsSXV7egARLgJ9 "GistManager Glo Board")
 

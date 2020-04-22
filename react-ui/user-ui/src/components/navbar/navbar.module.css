@@ -1,0 +1,29 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--nav-bar-color);
+}
+
+.navbar-item{
+    border: 0px;
+    border-bottom: 2px solid var(--secondary-color);
+    color: var(--secondary-color);
+    font-size: 2.5rem;
+    height: var(--nav-bar-height);
+    width: var(--nav-bar-height);
+    margin: 0 2px;
+    
+    transition: all 150ms ease-in-out;
+}
+
+/* Desktop */
+@media screen and (min-width: 1000px){
+    .open-sidebar{
+        display: none;
+    }
+
+    .navbar-item:hover{
+        background-color: var(--secondary-color);
+        color: var(--primary-color)
+    }
+}

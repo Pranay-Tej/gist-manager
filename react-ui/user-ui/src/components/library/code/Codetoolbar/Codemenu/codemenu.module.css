@@ -1,0 +1,31 @@
+.code-menu {
+    grid-area: cm;
+
+    width: 100%;
+    display: flex;
+
+    /* display: flex; */
+}
+.code-menu-item {
+    display: inline-block;
+    font-size: 2rem;
+    flex: 1;
+    color: var(--primary-font-color);
+    border-radius: 5px;
+}
+
+.edit-tags {
+    background-color: var(--success-button);
+    /* color: var(--primary-font-color); */
+}
+
+.download-tag {
+    background-color: var(--primary-button) ;
+    /* color: var(--primary-font-color); */
+}
+
+@media screen and (min-width: 1000px) {
+    .code-menu-item {
+        width: 4em;
+    }
+}
