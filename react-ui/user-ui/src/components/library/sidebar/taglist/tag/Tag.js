@@ -5,7 +5,7 @@ import Emitter from "../../../../../services/emitter";
 import tagService from "../../../../../services/tagService";
 
 function Tag(props) {
-    const { tag } = props;
+    const { tag, refreshTagList } = props;
 
     const sendTag = () => {
         Emitter.emit("TagId", tag.id);
@@ -15,7 +15,8 @@ function Tag(props) {
         const delete_confirmation = window.confirm(`Delete Tag: ${tag.name}?`);
         if (delete_confirmation) {
             tagService.deleteTag(tag.id).then((data) => {
-                console.log(data);
+                // console.log(data);
+                Emitter.emit("refreshTagList")
             });
         }
     };

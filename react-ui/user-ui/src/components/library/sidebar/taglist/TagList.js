@@ -17,7 +17,7 @@ function TagList() {
         // }
         tagService.getUserTags(username).then((data) => setTags(data));
     };
-    
+
     useEffect(() => {
         refreshTagList();
 
@@ -25,8 +25,14 @@ function TagList() {
             refreshTagList();
         });
 
+        Emitter.on("refreshTagList", () => {
+            refreshTagList();
+        });
+
         return () => {
             Emitter.off("usernameUpdate");
+            Emitter.off("refreshTagList");
+
         };
     }, []);
 

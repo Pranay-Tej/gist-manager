@@ -22,7 +22,7 @@ function Usermenu() {
         }
         tagService
             .createNewTag(username, new_tag_name)
-            .then((data) => console.log(data));
+            .then((data) => Emitter.emit("refreshTagList"));
     };
 
     const downloadAllSnippets = () => {
