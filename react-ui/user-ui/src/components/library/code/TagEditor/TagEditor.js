@@ -76,10 +76,15 @@ function TagEditor(props) {
             getAllUserTags();
         });
 
+        Emitter.on("refreshTagList", () => {
+            getAllUserTags();
+        });
+
         return () => {
             // unsubscribing on unmount
             Emitter.off("editTags");
             Emitter.off("usernameUpdate");
+            Emitter.off("refreshTagList");
 
         };
     }, []);
