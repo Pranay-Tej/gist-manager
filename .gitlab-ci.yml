@@ -33,7 +33,7 @@ vercel_deploy-react-ui:
   stage: deploy-react-ui
   script:
     - npm i -g vercel
-    - vercel react-ui/user-ui/ --confirm --name=gist-man --token=$VERCEL_TOKEN
+    - vercel react-ui/user-ui/ --confirm --name=gistman --token=$VERCEL_TOKEN --prod
   only:
     - master
 
@@ -41,6 +41,6 @@ vercel_deploy-angular-ui:
   stage: deploy-angular-ui
   script:
     - npm i -g vercel
-    - vercel angular-ui/snippet-ui/ --confirm --name=gistmanager --token=$VERCEL_TOKEN
+    - vercel angular-ui/snippet-ui/ --confirm --name=gistmanager --token=$VERCEL_TOKEN --prod
   only:
     - master
