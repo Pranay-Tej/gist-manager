@@ -1,6 +1,6 @@
 ## Web app to manage GitHub Gists
 
-[Visit React App](https://gist-man.now.sh/ "GistMan")
+[Visit React App](https://gistman.now.sh/ "GistMan")
 
 [Visit Angular App](https://gistmanager.now.sh/ "GistManager")
 
