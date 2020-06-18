@@ -2,23 +2,25 @@ image: node
 
 before_script:
   - apt-get update -qy && apt-get install --no-install-recommends
-  - apt-get install -qy git
-  - git config user.email $EMAIL_ID
-  - git config user.name $GIT_USERNAME
-  - apt-get install -qy curl
-  - curl https://cli-assets.heroku.com/install.sh | sh
-  - echo -e "machine git.heroku.com\n  login $EMAIL_ID\n  password $HEROKU_API_KEY" >> ~/.netrc
-  - npm i -g vercel
 
 stages:
   - deploy-backend
-  - deploy-angular-ui
   - deploy-react-ui
+  - deploy-angular-ui
 
 
 heroku_deploy-backend:
   stage: deploy-backend
   script:
+    # git configuration
+    # - apt-get install -qy git
+    - git config user.email $EMAIL_ID
+    - git config user.name $GIT_USERNAME
+    # heroku configuration
+    # - apt-get install -qy curl
+    - curl https://cli-assets.heroku.com/install.sh | sh
+    - echo -e "machine git.heroku.com\n  login $EMAIL_ID\n  password $HEROKU_API_KEY" >> ~/.netrc
+    # heroku git configuration
     - heroku git:remote --app $HEROKU_APP_BACKEND
     - git remote rename heroku heroku-backend
     - heroku stack:set heroku-18 --app $HEROKU_APP_BACKEND
@@ -27,16 +29,18 @@ heroku_deploy-backend:
   only:
     - master
 
-vercel_deploy-angular-ui:
-  stage: deploy-angular-ui
+vercel_deploy-react-ui:
+  stage: deploy-react-ui
   script:
+    - npm i -g vercel
     - vercel react-ui/user-ui/ --confirm --name=gist-man --token=$VERCEL_TOKEN
   only:
     - master
 
-vercel_deploy-react-ui:
-  stage: deploy-react-ui
+vercel_deploy-angular-ui:
+  stage: deploy-angular-ui
   script:
+    - npm i -g vercel
     - vercel angular-ui/snippet-ui/ --confirm --name=gistmanager --token=$VERCEL_TOKEN
   only:
     - master
