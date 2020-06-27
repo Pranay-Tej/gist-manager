@@ -35,6 +35,12 @@ public class GistController {
 
     ResponseEntity<?> responseEntity;
 
+    @GetMapping("/wakeup")
+    ResponseEntity<?> wakeup() throws NullValueException {
+        responseEntity = new ResponseEntity<String>("Hello World!", HttpStatus.OK);
+        return responseEntity;
+    }
+
     @GetMapping("/refresh/{username}")
     ResponseEntity<?> refreshLibrary(@PathVariable String username) throws NullValueException {
         responseEntity = new ResponseEntity<String>(snippetService.refreshLibrary(username), HttpStatus.OK);
