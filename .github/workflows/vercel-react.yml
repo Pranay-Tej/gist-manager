@@ -1,0 +1,16 @@
+name: Deploy Vercel React
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.2
+        with:
+          node-version: '12'
+      - run: npx vercel react-ui/user-ui/ --confirm --name=gistman --token=${{secrets.VERCEL_TOKEN}} --prod

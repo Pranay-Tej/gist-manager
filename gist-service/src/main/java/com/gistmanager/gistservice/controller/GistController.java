@@ -37,8 +37,7 @@ public class GistController {
 
     @GetMapping("/wakeup")
     ResponseEntity<?> wakeup() throws NullValueException {
-        // System.out.println("Hello World!");
-        responseEntity = new ResponseEntity<String>("Hello World!", HttpStatus.OK);
+        responseEntity = new ResponseEntity<String>("App is online!", HttpStatus.OK);
         return responseEntity;
     }
 
