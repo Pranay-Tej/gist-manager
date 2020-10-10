@@ -1,0 +1,16 @@
+name: Deploy Vercel Angular
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.2
+        with:
+          node-version: '12'
+      - run: npx vercel angular-ui/snippet-ui/ --confirm --name=gistmanager --token=${{secrets.VERCEL_TOKEN}} --prod

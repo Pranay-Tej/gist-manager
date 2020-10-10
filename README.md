@@ -1,8 +1,30 @@
-## Web app to manage GitHub Gists
+# GistMan
+
+GistMan is a web app to organize and download GitHub Gists
 
 [Visit React App](https://gistman.now.sh/ "GistMan")
 
 [Visit Angular App](https://gistmanager.now.sh/ "GistManager")
+
+---
+
+## Tech Stack
+
+- Database
+  - MongoDB
+- Backend
+  - Spring Boot
+- Frontend
+  - React
+  - Angular
+- CI/CD
+  - GitHub Actions
+  - GitLab CI
+- Cloud
+  - Heroku
+  - Vercel
+
+---
 
 [View Project Status](https://app.gitkraken.com/glo/board/XlPsSXV7egARLgJ9 "GistManager Glo Board")
 
